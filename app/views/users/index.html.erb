@@ -1,0 +1,76 @@
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <button class="nav-link active" id="nav-dashboard-tab" data-bs-toggle="tab" data-bs-target="#nav-dashboard" type="button" role="tab" aria-controls="nav-dashboard" aria-selected="true">Users Dashboard</button>
+    <button class="nav-link" id="nav-registration-tab" data-bs-toggle="tab" data-bs-target="#nav-registration" type="button" role="tab" aria-controls="nav-registration" aria-selected="false">Account Registration</button>
+    </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-dashboard" role="tabpanel" aria-labelledby="nav-dashboard-tab" tabindex="0">
+        <table id="users-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Last Name</th>
+                    <th>First Name</th>
+                    <th>Role</th>
+                    <th>Created at</th>
+                    <th>Updated at</th>
+                    <th>Status</th>
+                    <th id="delete_column"></th>
+                </tr>
+            </thead>
+            <tbody>
+            <% @user.each do |user| %>
+                <tr>
+                    <td><%= user.id %></td>
+                    <td><%= user.email %></td>
+                    <td><%= user.last_name %></td>
+                    <td><%= user.first_name %></td>
+                    <td><%= @roles[user.role_id] %></td>
+                    <td><%= user.created_at.strftime("%m/%d/%Y %I:%M%p") %></td>
+                    <td><%= user.updated_at.strftime("%m/%d/%Y %I:%M%p") %></td>
+                    <td><%= user.status %></td>
+                    <td id="delete_icon">
+                        <form class="action_buttons" action="/users/edit/<%= user.id %>" method="post">
+                            <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+                            <button type="submit" id="edit"><i class="fa-solid fa-pen"></i></button>
+                        </form>
+                        <form class="action_buttons" action="/users/destroy" method="post">
+                            <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+                            <input type="hidden" name="_method" value="delete">
+                            <input type="hidden" name="id" value="<%= user.id %>">
+                            <button type="submit" id="delete"><i class="fa-solid fa-trash" style="color: #ff0000;"></i></button>
+                        </form>
+                    </td>
+                </tr>
+            <% end %>
+            </tbody>
+        </table>
+    </div>
+    <div class="tab-pane fade" id="nav-registration" role="tabpanel" aria-labelledby="nav-registration-tab" tabindex="0">
+        <form action="/users/create" method="post">
+            <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+            <select name="user[role_id]" id="role_id">
+                <option value="1">Requestor Account</option>
+                <option value="2">Reviewer Account</option>
+                <option value="3">Approver Account</option>
+                <option value="4">Specialist Account</option>
+                <option value="5">Custodian Account</option>
+                <option value="6">Finance Account</option>
+                <option value="9">Administrator Account</option>
+            </select>
+            <h4>Email</h4>
+            <input type="text" name="user[email]" id="email" value="doe.j@saprevamped.com">
+            <h4>Last Name</h4>
+            <input type="text" name="user[last_name]" id="last_name" value="Doe">
+            <h4>First Name</h4>
+            <input type="text" name="user[first_name]" id="first_name" value="John">
+            <h4>Password</h4>
+            <input type="password" name="user[password]" id="password" value="12345">
+            <h4>Confirm Password</h4>
+            <input type="password" name="user[password_confirmation]" id="password_confirmation" value="12345">
+            <input type="submit" value="Register">
+        </form>
+    </div>
+</div>

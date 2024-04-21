@@ -1,0 +1,30 @@
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@user.errors.count, "error")%>prohibited this post from being saved:</h2>
+    <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<form action="/users/update/<%= @user.id %>" method="post">
+    <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+    <input type="hidden" name="_method" value="put">
+    <select name="role_id" id="role_id">
+        <% @roles.each do |key, value| %>
+            <% if key == @user.role_id %>
+                <option value="<%= key %>" selected><%= value %> Account</option>
+            <% else %>
+                <option value="<%= key %>"><%= value %> Account</option>
+            <% end %>
+        <% end %>
+    </select>
+    <h4>Email</h4>
+    <input type="text" name="email" id="email" value="<%= @user.email %>">
+    <h4>Last Name</h4>
+    <input type="text" name="last_name" id="last_name" value="<%= @user.last_name %>">
+    <h4>First Name</h4>
+    <input type="text" name="first_name" id="first_name" value="<%= @user.first_name %>">
+    <input type="submit" value="Update">
+</form>

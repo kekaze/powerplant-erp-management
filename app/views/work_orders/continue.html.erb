@@ -1,0 +1,65 @@
+<form id="create_wor" action="/worsystem/<%= @work_order.wor_number %>" method="post">
+    <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+    <input type="hidden" name="_method" value="put">
+    <input type="hidden" name="work_order[wor_number]" value="<%= @work_order.wor_number %>">
+    <h1>Continue a Work Order Request# <%= @work_order.wor_number %></h1>
+    <table>
+        <tr>
+            <th style="width:250px"><h5>Inspection DateTime</h5></th>
+            <th><h5>Priority</h5></th>
+        </tr>
+        <tr>
+            <td><input type="text" name="work_order[inspected_at]" placeholder="mm/dd/yyyy HH:MM" value="<%= @work_order.inspected_at.strftime("%m/%d/%Y %H:%M") %>"></td>
+            <td>
+                <% @priorities.each do |priority| %>
+                    <% if priority == @work_order.priority %>
+                        <label class="priority"><input type="radio" name="priority" value="<%= priority %>" checked><%= priority %></label>
+                    <% else %>
+                        <label class="priority"><input type="radio" name="priority" value="<%= priority %>"><%= priority %></label>
+                    <% end %>
+                <% end %>
+            </td>
+        </tr>
+    </table>
+    <table style="width:700px">
+        <tr>
+            <th><h5>Unit Name</h5></th>
+            <th><h5>Equipment Identifier</h5></th> <!-- should dynamically generate different codes depending on the selected equipment -->
+            <th><h5>Running Hours</h5></th>
+        </tr>
+        <tr>
+            <td>
+                <select name="unit_name" id="unit_name">
+                    <% @unit_names.each do |unit| %>
+                        <% if unit == @equipment.unit_name %>
+                            <option value="<%= unit %>" selected><%= unit %></option>
+                        <% else %> 
+                            <option value="<%= unit %>"><%= unit %></option>
+                        <% end %>
+                    <% end %>
+                </select>
+            </td>
+            <td>
+                <select name="equipment_identifier" id="equipment_identifier">
+                    <% @identifiers.each do |identifier| %>
+                        <% if identifier == @equipment.identifier %>
+                            <option value="<%= identifier %>" selected><%= identifier %></option>
+                        <% else %>
+                            <option value="<%= identifier %>"><%= identifier %></option>
+                        <% end %>
+                    <% end %>
+                </select>
+            </td>
+            <td><input type="text" name="work_order[running_hours]" value="<%= number_with_precision(@work_order.running_hours, precision: 2, delimiter: ',', separator: '.') %>"></td>
+        </tr>
+        <tr>
+        </tr>
+    </table>
+    <h5>Discrepancy Description</h5>
+    <textarea name="work_order[description]"><%= @work_order.description %></textarea>
+    <section>
+        <button id="submit" name="submit" type="submit" value="submit">Submit</button>
+        <button id="cancel" name="cancel" type="submit" value="cancel">Cancel</button>
+        <button id="draft" name="draft" type="submit" value="draft">Save as draft</button>
+    </section>
+</form>

@@ -1,0 +1,159 @@
+#login_form {
+    margin: 100px 0 0 100px;
+}
+#login_form #email {
+    margin-bottom: 30px;
+}
+#login_form input {
+    display: block;
+}
+#login_form #submit {
+    margin-top: 20px;
+    display: inline-block;
+}
+#login_form a {
+    vertical-align: bottom;
+    margin-left: 10px;
+}
+#delete_icon {
+    text-align: center;
+    padding: 0;
+}
+#delete_column.sorting {
+    width: 26px;
+    background-image: none;
+}
+#delete, #edit {
+    border: none;
+    background-color: transparent;
+}
+.action_buttons {
+    display: inline-block;
+}
+header {
+    position: relative;
+}
+#logout, #profile {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    z-index: 1;
+}
+#profile {
+    right: 90px;
+}
+
+#wor-table_wrapper {
+    padding-top: 40px;
+}
+
+form#create_wor h1 {
+    margin-bottom: 20px;
+}
+form#create_wor h5 {
+    margin: 0;
+}
+form#create_wor {
+    padding: 20px;
+}
+form#create_wor textarea {
+    display: block;
+    width: 800px;
+    height: 240px;
+    resize: none;
+    margin-bottom: 10px;
+}
+form#create_wor table {
+    margin-bottom: 20px;
+}
+form#create_wor .priority {
+    margin-right: 10px;
+}
+
+// for show WOR
+
+#nav-tab {
+    margin-bottom: 10px;
+}
+
+#wor_details {
+    width: 800px;
+}
+#wor_details h1 {
+    margin-bottom: 0;
+    display: inline-block;
+    margin-right: 10px;
+}
+#wor_details #action_dates {
+    font-size: 12px;
+    display: inline-block;
+}
+#wor_details h5 {
+    margin: 0;
+}
+#wor_details form#view_wor {
+    padding: 20px;
+    width: 60%;
+}
+#wor_details textarea {
+    display: block;
+    width: 97%;
+    height: 240px;
+    resize: none;
+    margin-bottom: 10px;
+}
+#wor_details table {
+    margin-bottom: 20px;
+}
+#wor_details .priority {
+    margin-right: 10px;
+}
+#wor_details #footer {
+    margin-bottom: 20px;
+    display: inline-block;
+}
+#wor_details #footer section {
+    display: inline-block;
+}
+#draft, #return {
+    color: rgb(48, 48, 48);
+    background-color: transparent;
+    border: none;
+    text-decoration: underline;
+}
+#return {
+    margin-left: 20px;
+}
+#submit, #approve, #close, #update {
+    background-color:#008e0e;
+    color: white;
+}
+#reject, #revoke, #cancel {
+    background-color: rgb(165, 0, 0);
+    color: white;
+}
+#nav-reservation .matcode{
+    width: 110px;
+}
+#nav-reservation .quantity {
+    width: 50px;
+}
+#nav-reservation .matcode, #nav-reservation .quantity {
+    border: none;
+}
+#nav-reservation #reservation, #nav-reservation #reservation th, #nav-reservation #reservation tr, #nav-reservation #reservation td {
+    border: 1px solid black;
+}
+#reservation {
+    margin: 20px 0;
+}
+#reservation td {
+    padding: 2px;
+}
+#reservation .matcode, #reservation .quantity {
+    width: 100%;
+    background-color: rgb(255, 255, 194);
+}
+#reservation_info, #reservation_paginate, #reservation_length, #reservation_filter {
+    display: none;
+}

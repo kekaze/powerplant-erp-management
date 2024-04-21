@@ -1,0 +1,81 @@
+<body>
+    <% if flash[:notice] %>
+        <% flash[:notice].each do |note| %>
+            <p id="notice"><%= note %></p>  
+        <% end %>
+    <% end %>
+    <% if flash[:user_errors] %>
+        <div id="error_explanation">
+            <h2><%= pluralize(flash[:user_errors].count, "error") %> prohibited this user from being saved:</h2>
+            <ul>
+                <% flash[:user_errors].each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="wor-system-tab" data-bs-toggle="tab" data-bs-target="#wor-system" type="button" role="tab" aria-controls="wor-system" aria-selected="true">Work Order System</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="warehouse-tab" data-bs-toggle="tab" data-bs-target="#warehouse" type="button" role="tab" aria-controls="warehouse" aria-selected="false">Warehouse and Inventory</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="finance-tab" data-bs-toggle="tab" data-bs-target="#finance" type="button" role="tab" aria-controls="finance" aria-selected="false">Finance System</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="administrator-tab" data-bs-toggle="tab" data-bs-target="#administrator" type="button" role="tab" aria-controls="administrator" aria-selected="false">Administrator</button>
+        </li>
+    </ul>
+    <!-- provide authentication tokens -->
+    <!-- provide hidden inputs for every role -->
+    <div class="tab-content">
+        <div class="tab-pane active" id="wor-system" role="tabpanel" aria-labelledby="wor-system-tab" tabindex="0">
+            <form id="worsystem_login_form" action="/users/attempt_login" method="post">
+                <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+                <h2>Email</h2>
+                <input id="email" type="text" name="email">
+                <h2>Password</h2>
+                <input type="password" name="password" id="password">
+                <input type="submit" id="submit" value="Login">
+                <a href="#">Forgot Password?</a>
+            </form>
+        </div>
+        <div class="tab-pane" id="warehouse" role="tabpanel" aria-labelledby="warehouse-tab" tabindex="0">
+            <form id="warehouse_login_form" action="/users/attempt_login" method="post">
+                <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+                <h2>Custodian Email</h2>
+                <input id="email" type="text" name="email">
+                <h2>Custodian Password</h2>
+                <input type="password" name="password" id="password">
+                <input type="submit" id="submit" value="Login">
+                <a href="#">Forgot Password?</a>
+            </form>
+        </div>
+        <div class="tab-pane" id="finance" role="tabpanel" aria-labelledby="finance-tab" tabindex="0">
+            <form id="finance_login_form" action="/users/attempt_login" method="post">
+                <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+                <h2>Finance Email</h2>
+                <input id="email" type="text" name="email">
+                <h2>Finance Password</h2>
+                <input type="password" name="password" id="password">
+                <input type="submit" id="submit" value="Login">
+                <a href="#">Forgot Password?</a>
+            </form>
+        </div>
+        <div class="tab-pane" id="administrator" role="tabpanel" aria-labelledby="administrator-tab" tabindex="0">
+            <form id="admin_login_form" action="/users/attempt_login" method="post">
+                <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+                <h2>Admin Email</h2>
+                <input id="email" type="text" name="email" value="yanson.jr@saprevamped.com">
+                <h2>Admin Password</h2>
+                <input type="password" name="password" id="password" value="supersecretseed">
+                <input type="submit" id="submit" value="Login">
+                <a href="#">Forgot Password?</a>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
