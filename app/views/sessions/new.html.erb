@@ -34,12 +34,17 @@
         <%= link_to "Want to experience the actual login process? Click here.", login_path %>
     <% end %>
     <script>
-        let name = prompt("Please enter a unique username", "BINI_Colet")
+        let name = prompt("Please enter a unique username", "BINI_Colet");
+        let greet = document.getElementById("greeting");
         if (name != null) {
-            let element = document.getElementById("username")
-            let greet = document.getElementById("greeting")
-            element.setAttribute("value", name)
-            greet.innerHTML = "Hi, " + name + " 👋"
+          let element = document.getElementById("username");
+          element.setAttribute("value", name);
+        } else {
+          name = prompt("Username is required", "BINI_Colet")
+          if (!name || name == null) {
+            location.reload();
+          }
         }
+        greet.innerHTML = "Hi, " + name + " 👋";
     </script>
 </div>
