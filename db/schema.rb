@@ -10,18 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_21_204738) do
-  create_table "Users", force: :cascade do |t|
-    t.string "last_name", null: false
-    t.string "first_name", null: false
-    t.integer "role_id", null: false
-    t.string "email", null: false
-    t.string "password_digest", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "status"
-  end
-
+ActiveRecord::Schema[7.1].define(version: 2024_08_11_073514) do
   create_table "equipment", force: :cascade do |t|
     t.string "unit_name", null: false
     t.string "identifier", null: false
@@ -59,6 +48,24 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_21_204738) do
     t.datetime "updated_at", null: false
     t.index ["material_id"], name: "index_reserved_materials_on_material_id"
     t.index ["reservation_id"], name: "index_reserved_materials_on_reservation_id"
+  end
+
+  create_table "shortcutusers", force: :cascade do |t|
+    t.string "username", null: false
+    t.integer "role_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "last_name", null: false
+    t.string "first_name", null: false
+    t.integer "role_id", null: false
+    t.string "email", null: false
+    t.string "password_digest", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "status"
   end
 
   create_table "work_orders", force: :cascade do |t|
