@@ -13,7 +13,8 @@
 
   <body>
     <header>
-      <a id="logout" href="/users/logout">Logout</a>
+      <p id="profile">Welcome, <%= session[:username] %></p>
+      <%= link_to 'Logout', session_path(session[:username]), method: :delete%>
     </header>
     <%= yield %>
   </body>

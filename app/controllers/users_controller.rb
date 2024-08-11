@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
   def index
     if session[:role] && session[:role] != 9
       redirect_to "/worsystem" if session[:role] < 5
@@ -18,40 +17,6 @@ class UsersController < ApplicationController
       render layout: 'admin'
     else #if session is not present, perform logout process
       redirect_to "/users/logout"
-    end
-  end
-
-  def shortcut_login
-    render layout: 'application'
-  end
-
-  def shortcut_attempt_login
-    @username = params[:username]
-    # @user = User.find_by(email: params[:email])
-    # @role = @user.role_id
-    @role_id = params[:role]
-    @roles = {
-      1 => "Requestor",
-      2 => "Reviewer",
-      3 => "Approver",
-      4 => "Specialist",
-      5 => "Custodian",
-      6 => "Finance",
-      9 => "Administrator"
-    }
-
-    @user = Shortcutuser.new(username: @username, role_id: @role_id)
-
-    if @user.save
-      session[:role], session[:user_id], session[:username] = @role, @user.id, "#{@user.first_name} #{@user.last_name} (#{@roles[@role]})"
-      flash[:notice] = ["Welcome, #{@user.first_name}"]
-      
-      redirect_to worsystem_path unless @role > 4
-      redirect_to warehouse_path if @role == 5
-      redirect_to finance_path if @role == 6
-      redirect_to admin_path if @role == 9
-    else
-      render :shortcut_login
     end
   end
 
@@ -93,11 +58,6 @@ class UsersController < ApplicationController
     
     flash[:user_errors] = @user.errors.full_messages
     redirect_to admin_path
-  end
-
-  def logout
-    session.clear
-    redirect_to login_path
   end
 
   private

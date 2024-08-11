@@ -16,32 +16,21 @@
             </div>
         <% end %>
         <%= form_with url: shortcut_attempt_login_path do |form| %>
-            <p id="note">This is a shortcut process for login so you don't have to enter any credentials</p>
-            <h2 id="greeting"></h2>
+            <p id="note">Hello</p>
             <div>
                 <h3>Login as:</h3>
                 <%= form.select :role, [
-                    ["Admin", 1],
-                    ["Requestor", 2],
-                    ["Reviewer", 3],
-                    ["Approver", 4],
-                    ["Specialist", 5],
-                    ["Custodian", 6],
-                    ["Finance", 7]
+                    ["Admin", 9],
+                    ["Requestor", 1],
+                    ["Reviewer", 2],
+                    ["Approver", 3],
+                    ["Specialist", 4],
+                    ["Custodian", 5],
+                    ["Finance", 6]
                 ] %>
             </div>
             <%= form.hidden_field :username, value: "default_admin_name" %>
             <%= form.submit 'Login' %>
-            <%= link_to "Want to experience the actual login process? Click here." %>
         <% end %>
-        <script>
-            let name = prompt("Please enter a unique username", "BINI_Colet")
-            if (name != null) {
-                let element = document.getElementById("username")
-                let greet = document.getElementById("greeting")
-                element.setAttribute("value", name)
-                greet.innerHTML = "Hi, " + name + " 👋"
-            }
-        </script>
     </div>
 </body>
