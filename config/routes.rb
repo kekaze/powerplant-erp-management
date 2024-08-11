@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get 'reservations/index'
   get 'admin' => "users#index"
   get 'login' => "users#login", as: 'login'
-  post 'users/attempt_login' => "users#attempt_login"
+  post 'users/default_attempt_login' => "users#default_attempt_login", as: "default_attempt_login"
   get 'users/new'
   post 'users/create'
   delete 'users/destroy'
@@ -36,5 +36,5 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
-  root "users#login"
+  root "users#shortcut_login"
 end
