@@ -11,6 +11,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2024_08_11_073514) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "equipment", force: :cascade do |t|
     t.string "unit_name", null: false
     t.string "identifier", null: false
@@ -29,19 +32,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_11_073514) do
 
   create_table "reservations", force: :cascade do |t|
     t.integer "reservation_number"
-    t.integer "wor_number_id", null: false
-    t.datetime "issued_at"
+    t.integer "wor_number", null: false
+    t.datetime "issued_at", precision: nil
     t.string "status"
     t.decimal "total_cost"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["reservation_number"], name: "index_reservations_on_reservation_number", unique: true
-    t.index ["wor_number_id"], name: "index_reservations_on_wor_number_id"
+    t.index ["wor_number"], name: "index_reservations_on_wor_number"
   end
 
   create_table "reserved_materials", force: :cascade do |t|
-    t.integer "reservation_id", null: false
-    t.integer "material_id", null: false
+    t.bigint "reservation_id", null: false
+    t.bigint "material_id", null: false
     t.integer "quantity"
     t.decimal "subtotal"
     t.datetime "created_at", null: false
@@ -70,18 +73,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_11_073514) do
 
   create_table "work_orders", force: :cascade do |t|
     t.integer "wor_number", null: false
-    t.integer "equipment_id", null: false
+    t.bigint "equipment_id", null: false
     t.string "priority", null: false
     t.string "description", null: false
     t.string "status", null: false
-    t.datetime "inspected_at", null: false
-    t.integer "requestor_id", null: false
-    t.datetime "reviewed_at"
-    t.integer "reviewer_id"
-    t.datetime "approved_at"
-    t.integer "approver_id"
-    t.datetime "closed_at"
-    t.integer "closer_id"
+    t.datetime "inspected_at", precision: nil, null: false
+    t.bigint "requestor_id", null: false
+    t.datetime "reviewed_at", precision: nil
+    t.bigint "reviewer_id"
+    t.datetime "approved_at", precision: nil
+    t.bigint "approver_id"
+    t.datetime "closed_at", precision: nil
+    t.bigint "closer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "running_hours"
@@ -93,7 +96,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_11_073514) do
     t.index ["wor_number"], name: "index_work_orders_on_wor_number", unique: true
   end
 
-  add_foreign_key "reservations", "wor_numbers"
+  add_foreign_key "reservations", "work_orders", column: "wor_number", primary_key: "wor_number", name: "fk_wor_number", on_delete: :cascade
   add_foreign_key "reserved_materials", "materials"
   add_foreign_key "reserved_materials", "reservations"
   add_foreign_key "work_orders", "equipment"
