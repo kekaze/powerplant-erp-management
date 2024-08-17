@@ -3,37 +3,31 @@ class SessionsController < ApplicationController
     render layout: 'application'
   end
 
-  def login
-    print "Hello session/login"
-    puts params.inspect
-  end
+  def process_login
+    @user = User.find(username: params[:username])
+    
+    if !@user
+      redirect_to login_path
+    end
 
-  def create # handler to create a new user
-    @username = params[:username]
-    @role_id = params[:role].to_i
+    if @user
+      @roles = {
+        1 => "Requestor",
+        2 => "Reviewer",
+        3 => "Approver",
+        4 => "Specialist",
+        5 => "Custodian",
+        6 => "Finance",
+        9 => "Administrator"
+      }
+      @role_id = @user.role_id
 
-    @roles = {
-      1 => "Requestor",
-      2 => "Reviewer",
-      3 => "Approver",
-      4 => "Specialist",
-      5 => "Custodian",
-      6 => "Finance",
-      9 => "Administrator"
-    }
-    # create a new user based on the info that the user provided
-    @user = Shortcutuser.new(username: @username, role_id: @role_id)
+      session[:role], session[:user_id], session[:username], session[:isShortcut] = @role_id, @user.id, "#{@user.username} (#{@roles[@role_id]})", 0
 
-    if @user.save
-      session[:role], session[:user_id], session[:username], session[:isShortcut] = @role_id, @user.id, "#{@user.username} (#{@roles[@role_id]})", 1
-      flash[:notice] = ["Welcome, #{@user.username}"]
-      
       redirect_to worsystem_path unless @role_id > 4
       redirect_to warehouse_path if @role_id == 5
       redirect_to finance_path if @role_id == 6
       redirect_to admin_path if @role_id == 9
-    else
-      render :new_session_path
     end
   end
 

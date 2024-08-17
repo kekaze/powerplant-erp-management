@@ -1,26 +1,26 @@
 class WorkOrdersController < ApplicationController
   def index
-    if session[:role] && session[:role] > 4
-      # if role is NOT 1 to 4, then go back to role's root path
-      redirect_to "/admin" if session[:role] == 9
-      # add more redirections here for other roles later on
-    elsif session[:role] && session[:role] < 5 # if role_id is less than 5, show the Wor System Landing Page
-      if session[:role] == 1
-        @work_orders = WorkOrder.where(status: "Draft", requestor_id: session[:user_id]).or(WorkOrder.where.not(status: "Draft"))
-      elsif session[:role] == 2
-        @work_orders = WorkOrder.where.not(status: "Draft").and(WorkOrder.where.not(status: "Cancelled", reviewed_at: nil))
-      elsif session[:role] == 3
-        @work_orders = WorkOrder.where.not(status: ["Under Review", "Draft"]).and(WorkOrder.where.not(status: ["Revoked", "Cancelled"], approved_at: nil))
-      else
-        @work_orders = WorkOrder.where(status: ["For Approval", "Approved", "Closed"])
-      end
+    # if role is NOT 1 to 4, then go back to role's root path
+    redirect_to "/admin" and return if session[:role] == 9
+    # add more redirections here for 5 to 8 role_ids later on
+  
+    redirect_to new_session_path and return unless session[:role] #if session is not present, perform logout process to avoid unauthorized access
 
-      @equipment = Equipment.all
-      @users = User.all
-      render layout: 'wor'
-    else #if session is not present, perform logout process to avoid unauthorized access
-      redirect_to "/users/logout"
+    # if role_id is less than 5, show the Wor System Landing Page
+    if session[:role] == 1
+      @work_orders = WorkOrder.where(status: "Draft", requestor_id: session[:user_id]).or(WorkOrder.where.not(status: "Draft"))
+    elsif session[:role] == 2
+      @work_orders = WorkOrder.where.not(status: "Draft").and(WorkOrder.where.not(status: "Cancelled", reviewed_at: nil))
+    elsif session[:role] == 3
+      @work_orders = WorkOrder.where.not(status: ["Under Review", "Draft"]).and(WorkOrder.where.not(status: ["Revoked", "Cancelled"], approved_at: nil))
+    else
+      @work_orders = WorkOrder.where(status: ["For Approval", "Approved", "Closed"])
     end
+
+    @equipment = Equipment.all
+    @users = User.all
+    @page_title = "Work Order System"
+    render layout: 'navbar'
   end
 
   def show

@@ -1,9 +1,10 @@
 class UsersController < ApplicationController
   def index
-    if session[:role] && session[:role] != 9
-      redirect_to "/worsystem" if session[:role] < 5
+      redirect_to "/worsystem" and return if session[:role] < 5  # route guard for admin page
       # add more redirections here for other roles later on
-    elsif session[:role] && session[:role] == 9
+
+      redirect_to new_user_path and return if !session[:role] #if session is not present, redirect to shortcut login page
+    
       @roles = {
         1 => "Requestor",
         2 => "Reviewer",
@@ -14,22 +15,41 @@ class UsersController < ApplicationController
         9 => "Administrator"
       }
       @user = User.all
-      render layout: 'admin'
-    else #if session is not present, perform logout process
-      redirect_to "/users/logout"
-    end
+      render layout: 'navbar'
   end
 
   def new
   end
 
   def create
-    @user = User.new(params.require(:user).permit(:email, :last_name, :first_name, :role_id, :password, :password_comfirmation, :status))
-    @user.status = "Active"
-    if @user.save
-      redirect_to admin_path
+    if (!params[:email] && !params[:password] && params[:username] && params[:role]) 
+      @username = params[:username]
+      @role_id = params[:role].to_i
+
+      @roles = {
+        1 => "Requestor",
+        2 => "Reviewer",
+        3 => "Approver",
+        4 => "Specialist",
+        5 => "Custodian",
+        6 => "Finance",
+        9 => "Administrator"
+      }
+      # create a new user based on the info that the user provided
+      @user = Shortcutuser.new(username: @username, role_id: @role_id)
+
+      if @user.save
+        session[:role], session[:user_id], session[:username], session[:isShortcut] = @role_id, @user.id, "#{@user.username} (#{@roles[@role_id]})", 1
+        
+        redirect_to worsystem_path unless @role_id > 4
+        redirect_to warehouse_path if @role_id == 5
+        redirect_to finance_path if @role_id == 6
+        redirect_to admin_path if @role_id == 9
+      else
+        redirect_to new_session_path
+      end
     else
-      render :new
+
     end
   end
 
