@@ -39,7 +39,7 @@ class UsersController < ApplicationController
       @user = Shortcutuser.new(username: @username, role_id: @role_id)
 
       if @user.save
-        session[:role], session[:user_id], session[:username], session[:isShortcut] = @role_id, @user.id, "#{@user.username} (#{@roles[@role_id]})", 1
+        session[:role], session[:user_id], session[:username], session[:isShortcut] = @role_id, @user.id, "#{@user.username} (#{@roles[@role_id]})", true
         
         redirect_to worsystem_path unless @role_id > 4
         redirect_to warehouse_path if @role_id == 5
@@ -49,7 +49,7 @@ class UsersController < ApplicationController
         redirect_to new_session_path
       end
     else
-
+      
     end
   end
 
@@ -112,3 +112,6 @@ end
       Adam Cruz - cruz.a@saprevamped.com  - niceone!@ (specialist)
       Alexander Arranz - arranz.alex@saprevamped.com  - helloworld! (specialist)
 =end
+
+
+# email: "admin@saprevamped.com", last_name: "Dela Cruz", first_name: "Juan", role_id: 1, password: "adminsecret123", password_confirmation: "adminsecret123"

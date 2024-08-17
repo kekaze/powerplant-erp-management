@@ -18,10 +18,10 @@
         <%= link_to "< Go back", root_path, id: "back" %>
         <h2 id="login">Login to SAP Revamped</h2>
         <p>A duped Power Plant Management System</p>
-        <%= form.label :username, "Username:" %>
-        <%= form.text_field :username %>
+        <%= form.label :email, "Email:" %>
+        <%= form.text_field :email, value: "admin@saprevamped.com" %>
         <%= form.label :password, "Password:" %>
-        <%= form.password_field :password %>
+        <%= form.password_field :password, value: "adminsecret123" %>
         <%= form.submit 'Login' %>
     <% end %>
 </div>
