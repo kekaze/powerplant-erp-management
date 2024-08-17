@@ -15,10 +15,6 @@ body {
     align-items: center;
     height: 100vh;
 
-    h2 {
-        font-size: 40px;
-    }
-
     form {
         display: flex;
         flex-direction: column;
@@ -28,12 +24,30 @@ body {
         padding: 70px;
         position: relative;
         
-        #note {
+        #note, #back {
             font-size: 11px;
             position: absolute;
             top: 8px;
             left: 8px;
             color: green;
+        }
+
+        #back {
+            font-size: 14px;
+            color: black;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: 40px;
+        }
+    
+        h2#login {
+            margin: 0 auto;
+        }
+        
+        #username {
+            margin-bottom: 8px;
         }
 
         div {

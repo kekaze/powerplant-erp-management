@@ -3,7 +3,12 @@ class SessionsController < ApplicationController
     render layout: 'application'
   end
 
-  def create # handler for both shortcut login and proper login
+  def login
+    print "Hello session/login"
+    puts params.inspect
+  end
+
+  def create # handler to create a new user
     @username = params[:username]
     @role_id = params[:role].to_i
 

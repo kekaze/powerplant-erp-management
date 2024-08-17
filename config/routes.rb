@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
+  
+  get 'login' => "sessions#login", as: 'login'
+  post 'process' => "sessions#login", as: 'process'
 
   get 'reservations/create'
   get 'reservations/index'
   get 'admin' => "users#index"
-  get 'login' => "users#login", as: 'login'
   get 'shortcut_login' => "users#shortcut_login", as: 'shortcut_login'
   post 'users/shortcut_attempt_login' => "users#shortcut_attempt_login", as: "shortcut_attempt_login"
   get 'users/new'
