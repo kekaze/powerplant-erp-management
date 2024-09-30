@@ -71,6 +71,13 @@ body {
             }
         }
         
+        #login_link {
+            font-style: italic;
+            text-decoration: none;
+            font-size: 12px;
+            padding-top: 2px;
+        }
+        
         input[type="submit"] {
             border-radius: 5px;
             background-color: #cce3de;

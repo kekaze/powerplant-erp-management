@@ -31,7 +31,7 @@
         </div>
         <%= form.hidden_field :username, value: "default_admin_name" %>
         <%= form.submit 'Login' %>
-        <%= link_to "Want to experience the actual login process? Click here.", login_path %>
+        <%= link_to "Want to experience the actual login process? Click here.", login_path, id: "login_link" %>
     <% end %>
     <script>
         let name = prompt("Please enter a unique username", "BINI_Colet");
