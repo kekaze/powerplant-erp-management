@@ -107,26 +107,6 @@ body {
 // *************************************************************************************************************
 
 
-
-
-
-// #login_form {
-//     margin: 100px 0 0 100px;
-// }
-// #login_form #email {
-//     margin-bottom: 30px;
-// }
-// #login_form input {
-//     display: block;
-// }
-// #login_form #submit {
-//     margin-top: 20px;
-//     display: inline-block;
-// }
-// #login_form a {
-//     vertical-align: bottom;
-//     margin-left: 10px;
-// }
 #delete_icon {
     text-align: center;
     padding: 0;
@@ -144,6 +124,7 @@ body {
 }
 header {
     position: relative;
+    height: 50px;
 }
 #logout, #profile {
     position: absolute;
