@@ -13,11 +13,11 @@ Rails.application.routes.draw do
   get 'admin' => "users#index"
   get 'shortcut_login' => "users#shortcut_login", as: 'shortcut_login'
   post 'users/shortcut_attempt_login' => "users#shortcut_attempt_login", as: "shortcut_attempt_login"
-  # get 'users/new'
-  # post 'users/create'
-  # delete 'users/destroy'
-  # post 'users/edit/:id' => "users#edit"
-  # put 'users/update/:id' => "users#update"
+  get 'users/new'
+  post 'users/create'
+  delete 'users/destroy'
+  post 'users/edit/:id' => "users#edit"
+  put 'users/update/:id' => "users#update"
 
   
   get 'worsystem' => "work_orders#index"
