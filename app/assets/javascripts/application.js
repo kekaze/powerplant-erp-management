@@ -16,3 +16,13 @@
 //= require bootstrap
 //= require dataTables/jquery.dataTables
 //= require_tree .
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('[data-action="open-navbar-popover"]').forEach(button => {
+    button.addEventListener('mouseup', function(event) {
+      event.preventDefault();  // Prevent default action (if any)
+      console.log("Button clicked!")
+      // Add your custom click behavior here
+    });
+  });
+});

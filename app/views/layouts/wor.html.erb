@@ -12,10 +12,7 @@
   </head>
 
   <body>
-    <header>
-      <p id="profile">Welcome, <%= session[:username] %></p>
-      <a id="logout" href="/users/logout">Logout</a>
-    </header>
+    <%= render partial: 'shared/navbar' %>
     <%= yield %>
   </body>
 </html>

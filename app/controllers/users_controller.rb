@@ -15,7 +15,6 @@ class UsersController < ApplicationController
         9 => "Administrator"
       }
       @user = User.all
-      render layout: 'navbar'
   end
 
   def new
