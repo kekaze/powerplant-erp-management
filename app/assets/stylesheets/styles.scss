@@ -99,19 +99,83 @@ body {
 
 }
 
-
-#navbar-popover {
+#navbar {
+    position: relative;
     display: grid;
-    grid-column: 1 / 1;
-    width: 130px;
-    position: absolute;
-    right: 5px;
-    z-index: 5;
+    justify-items: right;
+    height: auto;
+    padding: 5px 0px;
+
     button {
-        height: 50px;
-        text-align: left;
+        background-color: transparent;
+        padding: 0px;
+        border-radius: 50%;
+        border-color: transparent;
+        padding-right: 10px;
+
+        i {
+            font-size: 45px;
+        }
     }
 }
+
+hr#navbar-line {
+    margin-top: 0px;
+}
+
+section#admin-page {
+    position: relative;
+    padding: 0px 10px;
+
+    #navbar-popover {
+        display: grid;
+        grid-column: 1 / 1;
+        width: 130px;
+        position: absolute;
+        right: 40px;
+        top: -20px;
+        z-index: 5;
+        visibility: hidden;
+
+        button {
+            height: 50px;
+            text-align: left;
+        }
+    }
+
+    .nav-link {
+        color: white;
+    }
+
+    .nav-link.active {
+        color: black;
+    }
+
+    #users-table_wrapper, #nav-registration {
+        padding-top: 10px;
+        #users-table {
+            color: white;
+        }
+    }
+    
+    tr {
+        background-color: transparent;
+    }
+}
+
+
+
+.modal-backdrop {
+    background-color: rgb(255, 255, 255); /* Dark semi-transparent background */
+    backdrop-filter: blur(5px); /* Apply blur effect */
+    -webkit-backdrop-filter: blur(5px); /* For Safari support */
+}
+
+.modal-content {
+    z-index: 1055; /* Make sure the modal content is above the backdrop */
+}
+
+
 
 
 

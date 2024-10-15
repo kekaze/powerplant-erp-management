@@ -18,11 +18,14 @@
 //= require_tree .
 
 document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('[data-action="open-navbar-popover"]').forEach(button => {
-    button.addEventListener('mouseup', function(event) {
-      event.preventDefault();  // Prevent default action (if any)
-      console.log("Button clicked!")
-      // Add your custom click behavior here
-    });
-  });
+  const navbarPopover = document.getElementById("navbar-popover");
+
+  function togglePopoverVisibility(event) {
+      event.preventDefault();
+      const popoverVisibility = window.getComputedStyle(navbarPopover).visibility;
+      console.log(popoverVisibility);
+      (popoverVisibility != "visible") ? navbarPopover.style.visibility = "visible": navbarPopover.style.visibility = "hidden";
+  }
+  
+  document.querySelector('[data-action="open-navbar-popover"]').addEventListener('click', togglePopoverVisibility);
 });
