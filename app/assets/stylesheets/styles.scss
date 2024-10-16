@@ -165,16 +165,28 @@ section#admin-page {
 
 
 
-.modal-backdrop {
-    background-color: rgb(255, 255, 255); /* Dark semi-transparent background */
-    backdrop-filter: blur(5px); /* Apply blur effect */
-    -webkit-backdrop-filter: blur(5px); /* For Safari support */
+.modal-backdrop.show {
+    background-color: rgba(255, 255, 255, 0.5); /* Dark semi-transparent background */
+    backdrop-filter: blur(30px); /* Apply blur effect */
+    opacity: 0.97;
+    // -webkit-backdrop-filter: blur(5px) opacity(0.8); /* For Safari support */
 }
 
 .modal-content {
     z-index: 1055; /* Make sure the modal content is above the backdrop */
 }
 
+.modal-dialog {
+    max-width: 100%;
+}
+
+// @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+//     .modal-backdrop {
+//       -webkit-backdrop-filter: blur(10px);
+//       backdrop-filter: blur(10px);
+//       background-color: rgba(255, 255, 255, 0.95);  
+//     }
+// }
 
 
 
