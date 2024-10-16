@@ -1,12 +1,11 @@
-<%= render partial: 'shared/partials/navbar' %>
+<%= render 'shared/partials/navbar' do |f| %>
+		<button type="button" class="btn btn-primary register-button h-auto my-2" data-bs-toggle="modal" data-bs-target="#user-registration-modal">Register a user</button>
+<% end %>
 <section id="admin-page">
 	<div id="navbar-popover">
 		<button>Profile</button>
 		<button><a id="logout" href="/users/logout"></a>Logout</button>
 	</div>
-	<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#user-registration-modal">
-		Launch
-	</button>
 	<table id="users-table">
 		<thead>
 			<tr>
