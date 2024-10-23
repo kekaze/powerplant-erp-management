@@ -1,55 +1,27 @@
 class UsersController < ApplicationController
   def index
-      redirect_to "/worsystem" and return if session[:role] < 5  # route guard for admin page
-      # add more redirections here for other roles later on
+    redirect_to "/worsystem" and return if session[:role] < 5  # route guard for admin page
+    # add more redirections here for other roles later on
 
-      redirect_to new_user_path and return if !session[:role] #if session is not present, redirect to shortcut login page
-    
-      @roles = {
-        1 => "Requestor",
-        2 => "Reviewer",
-        3 => "Approver",
-        4 => "Specialist",
-        5 => "Custodian",
-        6 => "Finance",
-        9 => "Administrator"
-      }
-      @user = User.all
+    redirect_to new_user_path and return if !session[:role] #if session is not present, redirect to shortcut login page
+  
+    @roles = {
+      1 => "Requestor",
+      2 => "Reviewer",
+      3 => "Approver",
+      4 => "Specialist",
+      5 => "Custodian",
+      6 => "Finance",
+      9 => "Administrator"
+    }
+
+    @user = User.all
   end
 
   def new
   end
 
   def create
-    if (!params[:email] && !params[:password] && params[:username] && params[:role]) 
-      @username = params[:username]
-      @role_id = params[:role].to_i
-
-      @roles = {
-        1 => "Requestor",
-        2 => "Reviewer",
-        3 => "Approver",
-        4 => "Specialist",
-        5 => "Custodian",
-        6 => "Finance",
-        9 => "Administrator"
-      }
-      # create a new user based on the info that the user provided
-      @user = Shortcutuser.new(username: @username, role_id: @role_id)
-
-      if @user.save
-        session[:role], session[:user_id], session[:username], session[:isShortcut] = @role_id, @user.id, "#{@user.username} (#{@roles[@role_id]})", true
-        
-        redirect_to worsystem_path unless @role_id > 4
-        redirect_to warehouse_path if @role_id == 5
-        redirect_to finance_path if @role_id == 6
-        redirect_to admin_path if @role_id == 9
-      else
-        redirect_to new_session_path
-      end
-    else
-      
-    end
   end
 
   def destroy

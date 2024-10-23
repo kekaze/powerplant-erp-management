@@ -1,23 +1,21 @@
 Rails.application.routes.draw do
-  resources :sessions, only: [:new]
-  resources :users
+  resources :sessions, only: [:new, :create]
+  resources :users, except: [:index]
 
-  delete 'logout' => "sessions#destroy", as:'logout'
-  
-  
+  post 'logout' => "sessions#destroy", as:'logout'
   get 'login' => "sessions#login", as: 'login'
-  post 'process' => "sessions#process_login", as: 'process'
+  
+  get 'admin' => "users#index", as: 'admin'
 
   get 'reservations/create'
   get 'reservations/index'
-  get 'admin' => "users#index"
-  get 'shortcut_login' => "users#shortcut_login", as: 'shortcut_login'
-  post 'users/shortcut_attempt_login' => "users#shortcut_attempt_login", as: "shortcut_attempt_login"
-  get 'users/new'
-  post 'users/create'
-  delete 'users/destroy'
-  post 'users/edit/:id' => "users#edit"
-  put 'users/update/:id' => "users#update"
+
+  # get 'admin' => "users#index"
+  # get 'users/new'
+  # post 'users/create'
+  # delete 'users/destroy'
+  # post 'users/edit/:id' => "users#edit"
+  # put 'users/update/:id' => "users#update"
 
   
   get 'worsystem' => "work_orders#index"
@@ -44,5 +42,5 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
-  root "sessions#new"
+  root "sessions#shortcut_login"
 end

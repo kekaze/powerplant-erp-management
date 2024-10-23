@@ -116,10 +116,6 @@ body {
             font-size: 45px;
         }
     }
-
-    // button.register-button {
-    //     height: 100;
-    // }
 }
 
 hr#navbar-line {
@@ -140,9 +136,20 @@ section#admin-page {
         z-index: 5;
         visibility: hidden;
 
-        button {
-            height: 50px;
-            text-align: left;
+        form {
+
+            button {
+                width: 100%;
+                text-align: left;
+                height: 50px;
+            }
+
+            button, button:active {
+                outline: none;
+                box-shadow: none;
+                transform: none;
+                border: none;
+            }
         }
     }
 
