@@ -18,12 +18,9 @@ class SessionsController < ApplicationController
         6 => "Finance",
         9 => "Administrator"
       }
-      # create a new user based on the info that the user provided
-      @user = Shortcutuser.new(username: @username, role_id: @role_id)
+      session[:role] = @role_id
 
-      if @user.save
-        session[:role], session[:user_id], session[:username], session[:isShortcut] = @role_id, @user.id, "#{@user.username} (#{@roles[@role_id]})", true
-        
+      if @username && @role_id
         redirect_to worsystem_path unless @role_id > 4
         redirect_to warehouse_path if @role_id == 5
         redirect_to finance_path if @role_id == 6

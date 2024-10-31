@@ -1,27 +1,40 @@
 class UsersController < ApplicationController
+
+  @@roles = {
+    1 => "Requestor",
+    2 => "Reviewer",
+    3 => "Approver",
+    4 => "Specialist",
+    5 => "Custodian",
+    6 => "Finance",
+    9 => "Administrator"
+  }
+
   def index
     redirect_to "/worsystem" and return if session[:role] < 5  # route guard for admin page
-    # add more redirections here for other roles later on
+
+    ###### TODO: add more redirections here for other roles later on
 
     redirect_to new_user_path and return if !session[:role] #if session is not present, redirect to shortcut login page
-  
-    @roles = {
-      1 => "Requestor",
-      2 => "Reviewer",
-      3 => "Approver",
-      4 => "Specialist",
-      5 => "Custodian",
-      6 => "Finance",
-      9 => "Administrator"
-    }
-
+    
+    @roles = @@roles
     @user = User.all
+    @page_title = "Admin"
   end
 
   def new
   end
 
   def create
+    @new_user = User.new(params.require(:user).permit(:role_id, :email, :last_name, :first_name, :password, :password_confirmation))
+    if @new_user.save
+      respond_to do |format|
+        format.html { redirect_to admin_path, notice: 'User was successfully created.' }
+        format.js
+      end
+    else
+      format.js
+    end
   end
 
   def destroy
@@ -32,15 +45,6 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
-    @roles = {
-      1 => "Requestor",
-      2 => "Reviewer",
-      3 => "Approver",
-      4 => "Specialist",
-      5 => "Custodian",
-      6 => "Finance",
-      9 => "Administrator"
-    }
   end
 
   def update
@@ -57,32 +61,3 @@ class UsersController < ApplicationController
     params.require(:user).permit(:email, :last_name, :first_name, :role_id, :password, :password_confirmation)
   end
 end
-
-=begin
-    roles = {
-      1 => "Requestor",
-      2 => "Reviewer",
-      3 => "Approver",
-      4 => "Specialist",
-      5 => "Custodian",
-      6 => "Finance",
-      9 => "Administrator"
-    }
-=end
-
-
-=begin
-    ACCOUNTS:
-      Justine Yanson - yanson.jr@saprevamped.com - supersecretseed (admin)
-      Juan Tamad - tamad.jn@saprevamped.com - 123456789 (requestor)
-      Admel Chester - chester.ad@saprevamped.com  - chester123 (requestor)
-      Martha Plaza - plaza.m@saprevamped.com  - martha12345 (reviewer)
-      Armando Miguel - miguel.arm@saprevamped.com  - armandoAko! (reviewer)
-      Ursula Castellano - castellano.u@saprevamped.com  - ursul@ (approver) password has space at the end
-      Jairo Soto - soto.jr@saprevamped.com  - soto123@ (approver)
-      Adam Cruz - cruz.a@saprevamped.com  - niceone!@ (specialist)
-      Alexander Arranz - arranz.alex@saprevamped.com  - helloworld! (specialist)
-=end
-
-
-# email: "admin@saprevamped.com", last_name: "Dela Cruz", first_name: "Juan", role_id: 1, password: "adminsecret123", password_confirmation: "adminsecret123"

@@ -6,40 +6,40 @@
         <h3 class="align-items-center mb-1">Register a new user</h3>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form action="/users/create" method="post" class="bg-light p-3 rounded">
-        <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
-        <select class="form-select mb-3" name="user[role_id]" id="role_id" class="">
-            <option value="1">Requestor Account</option>
-            <option value="2">Reviewer Account</option>
-            <option value="3">Approver Account</option>
-            <option value="4">Specialist Account</option>
-            <option value="5">Custodian Account</option>
-            <option value="6">Finance Account</option>
-            <option value="9">Administrator Account</option>
-        </select>
+      <%= form_with(model: @user, url: users_path, remote: true, method: :post, html: {class: 'bg-light p-3 rounded'}) do |form| %>
+        <%= form.select :role_id, options_for_select([
+          ["Select type of account", 0],
+          ["Requestor Account", 1],
+          ["Reviewer Account", 2],
+          ["Approver Account", 3],
+          ["Specialist Account", 4],
+          ["Custodian Account", 5],
+          ["Finance Account", 6],
+          ["Administrator Account", 9]
+        ], { disabled: 0, selected: 0, hidden: 0 }), {}, {class: 'form-select mb-3', 'aria-label': 'Account type dropdown'}%>
+
         <div class="form-floating mb-3">
-          <input type="email" name="user[email]" class="form-control" id="email" placeholder="Email">
-          <label for="email">Email address</label>
+          <%= form.text_field :email, class: "form-control", placeholder: "Email" %>
+          <%= form.label :email, "Email Address" %>
         </div>
         <div class="form-floating mb-3">
-          <input type="text" name="user[last_name]" class="form-control" id="last_name" placeholder="Last Name">
-          <label for="last_name">Last Name</label>
+          <%= form.text_field :last_name, class: "form-control", placeholder: "Last Name" %>
+          <%= form.label :last_name, "Last Name" %>
         </div>
         <div class="form-floating mb-3">
-          <input type="text" name="user[first_name]" class="form-control" id="first_name" placeholder="First Name">
-          <label for="first_name">First Name</label>
+          <%= form.text_field :first_name, class: "form-control", placeholder: "First Name" %>
+          <%= form.label :first_name, "First Name" %>
         </div>
         <div class="form-floating mb-3">
-          <input type="password" name="user[password]" class="form-control" id="password" placeholder="Password">
-          <label for="email">Password</label>
+          <%= form.password_field :password, class: "form-control", placeholder: "Password"  %>
+          <%= form.label :password, "Password" %>
         </div>
         <div class="form-floating mb-3">
-          <input type="password" name="user[confirm_password]" class="form-control" id="confirm_password" placeholder="Confirm Password">
-          <label for="email">Confirm Password</label>
+          <%= form.password_field :password_confirmation, class: "form-control", placeholder: "Confirm Password"  %>
+          <%= form.label :password_confirmation, "Confirm Password" %>
         </div>
-        <button type="submit" class="btn btn-primary w-100">Register</button>
-      </form>
+        <%= form.submit 'Register', class: "btn btn-primary w-100"  %>
+      <% end %>
     </div>
   </div>
 </div>
-

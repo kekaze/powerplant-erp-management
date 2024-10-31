@@ -136,20 +136,17 @@ section#admin-page {
         z-index: 5;
         visibility: hidden;
 
-        form {
+        button {
+            width: 100%;
+            text-align: left;
+            height: 50px;
+        }
 
-            button {
-                width: 100%;
-                text-align: left;
-                height: 50px;
-            }
-
-            button, button:active {
-                outline: none;
-                box-shadow: none;
-                transform: none;
-                border: none;
-            }
+        button, button:active {
+            outline: none;
+            box-shadow: none;
+            transform: none;
+            border: none;
         }
     }
 

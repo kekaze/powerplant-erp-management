@@ -1,9 +1,17 @@
+<div id="flash-messages">
+  <% if flash[:notice] %>
+    <div class="alert alert-success"><%= flash[:notice] %></div>
+  <% elsif flash[:alert] %>
+    <div class="alert alert-danger"><%= flash[:alert] %></div>
+  <% end %>
+</div>
+
 <%= render 'shared/partials/navbar' do |f| %>
 		<button type="button" class="btn btn-primary register-button h-auto my-2" data-bs-toggle="modal" data-bs-target="#user-registration-modal">Register a user</button>
 <% end %>
 <section id="admin-page">
-	<div id="navbar-popover">
-		<button class="border-bottom-0">Profile</button>
+	<div id="navbar-popover" class="border border-black">
+		<button class="border-bottom">Profile</button>
 		<button><a id="logout" href="/users/logout"></a>Logout</button>
 	</div>
 	<table id="users-table">
