@@ -27,7 +27,7 @@ class SessionsController < ApplicationController
         redirect_to finance_path if @role_id == 6
         redirect_to admin_path if @role_id == 9
       else
-        redirect_to shortcut_login_path
+        redirect_to "/"
       end
     elsif (params[:email] && params[:password] && params[:username] && params[:role])
       @user = User.find_by(email: params[:email])

@@ -11,6 +11,7 @@ class UsersController < ApplicationController
   }
 
   def index
+    redirect_to "/" and return if session[:role] == nil
     redirect_to "/worsystem" and return if session[:role] < 5  # route guard for admin page
 
     ###### TODO: add more redirections here for other roles later on
