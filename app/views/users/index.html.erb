@@ -11,8 +11,9 @@
 <% end %>
 <section id="admin-page">
 	<div id="navbar-popover" class="border border-black">
-		<button class="border-bottom">Profile</button>
-		<button><a id="logout" href="/users/logout"></a>Logout</button>
+		<%= form_with url: logout_path, method: :delete do |form| %>
+			<%= form.button "Logout" %>
+		<% end %>
 	</div>
 	<table id="users-table">
 		<thead>

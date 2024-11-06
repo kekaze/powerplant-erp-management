@@ -21,6 +21,7 @@ class SessionsController < ApplicationController
       session[:role] = @role_id
 
       if @username && @role_id
+        session[:isShortcut] = true
         redirect_to worsystem_path unless @role_id > 4
         redirect_to warehouse_path if @role_id == 5
         redirect_to finance_path if @role_id == 6
