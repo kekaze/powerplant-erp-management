@@ -39,12 +39,13 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
-    @user.update(status: "Inactive")
+    @user.update(status: false)
     redirect_to admin_path
   end
 
   def edit
     @user = User.find(params[:id])
+    @roles = @@roles
   end
 
   def update

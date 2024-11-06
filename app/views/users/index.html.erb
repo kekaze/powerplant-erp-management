@@ -53,22 +53,18 @@
 						<%= user.updated_at.strftime("%m/%d/%Y %I:%M%p") %>
 					</td>
 					<td>
-						<%= user.status %>
+						<%= user.status ? "Active" : "Inactive" %>
 					</td>
 					<td id="delete_icon">
-						<form class="action_buttons" action="/users/edit/<%= user.id %>" method="post">
-							<input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
-							<button type="submit" id="edit"><i class="fa-solid fa-pen"></i></button>
-						</form>
-						<form class="action_buttons" action="/users/destroy" method="post">
-							<input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
-							<input type="hidden" name="_method" value="delete">
-							<input type="hidden" name="id" value="<%= user.id %>">
-							<button type="submit" id="delete"><i class="fa-solid fa-trash" style="color: #ff0000;"></i></button>
-						</form>
+						<button type="button" id="edit" class="class_buttons" data-bs-toggle="modal" data-bs-target="#user-registration-modal"><i class="fa-solid fa-pen"></i></button>
+						<%= form_with model: user, url: user_path(user), method: :delete, class: "action_buttons" do %>
+							<button type="submit" id="delete">
+								<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+							</button>
+						<% end %>
 					</td>
 				</tr>
-				<% end %>
+			<% end %>
 		</tbody>
 	</table>
 </section>
