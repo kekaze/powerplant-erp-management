@@ -56,9 +56,22 @@
 						<%= user.status ? "Active" : "Inactive" %>
 					</td>
 					<td id="delete_icon">
-						<button type="button" id="edit" class="class_buttons" data-bs-toggle="modal" data-bs-target="#user-registration-modal"><i class="fa-solid fa-pen"></i></button>
+						<button 
+							type="button" 
+							id="edit" 
+							class="class_buttons" 
+							data-action="edit"
+							data-bs-toggle="modal" 
+							data-bs-target="#user-registration-modal"
+							data-email=<%= user.email %>
+							data-last-name=<%= user.last_name %>
+							data-first-name=<%= user.first_name %>
+							data-role-id=<%= user.role_id %>
+						>
+							<i class="fa-solid fa-pen"></i>
+						</button>
 						<%= form_with model: user, url: user_path(user), method: :delete, class: "action_buttons" do %>
-							<button type="submit" id="delete">
+							<button type="submit" id=<%= user.id %> class="delete">
 								<i class="fa-solid fa-trash" style="color: #ff0000;"></i>
 							</button>
 						<% end %>
