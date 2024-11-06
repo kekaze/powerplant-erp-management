@@ -20,7 +20,7 @@ initial_users_data =[
     "email": "juan@saprevamped.com",
     "password": "$ecretP@ss1",
     "password_confirmation": "$ecretP@ss1",
-    "status": "Active"
+    "status": 1
   },
   {
     "last_name": "Delos Reyes",
@@ -29,7 +29,7 @@ initial_users_data =[
     "email": "maria@saprevamped.com",
     "password": "$ecretP@ss2",
     "password_confirmation": "$ecretP@ss2",
-    "status": "Active"
+    "status": 1
   },
   {
     "last_name": "Gomez",
@@ -38,7 +38,7 @@ initial_users_data =[
     "email": "carlos@saprevamped.com",
     "password": "$ecretP@ss3",
     "password_confirmation": "$ecretP@ss3",
-    "status": "Active"
+    "status": 1
   },
   {
     "last_name": "Gomer",
@@ -47,7 +47,7 @@ initial_users_data =[
     "email": "lucia@saprevamped.com",
     "password": "$ecretP@ss4",
     "password_confirmation": "$ecretP@ss4",
-    "status": "Active"
+    "status": 1
   },
   {
     "last_name": "Smith",
@@ -56,7 +56,7 @@ initial_users_data =[
     "email": "john.smith@saprevamped.com",
     "password": "$ecretP@ss5",
     "password_confirmation": "$ecretP@ss5",
-    "status": "Active"
+    "status": 1
   },
   {
     "last_name": "Smithson",
@@ -65,7 +65,7 @@ initial_users_data =[
     "email": "emma.smithson@saprevamped.com",
     "password": "$ecretP@ss6",
     "password_confirmation": "$ecretP@ss6",
-    "status": "Active"
+    "status": 1
   },
   {
     "last_name": "Johnson",
@@ -74,7 +74,7 @@ initial_users_data =[
     "email": "michael.johnson@saprevamped.com",
     "password": "$ecretP@ss7",
     "password_confirmation": "$ecretP@ss7",
-    "status": "Active"
+    "status": 1
   },
   {
     "last_name": "Johnston",
@@ -83,7 +83,7 @@ initial_users_data =[
     "email": "sophia.johnston@saprevamped.com",
     "password": "$ecretP@ss8",
     "password_confirmation": "$ecretP@ss8",
-    "status": "Active"
+    "status": 1
   },
   {
     "last_name": "Martinez",
@@ -92,7 +92,7 @@ initial_users_data =[
     "email": "david.martinez@saprevamped.com",
     "password": "$ecretP@ss9",
     "password_confirmation": "$ecretP@ss9",
-    "status": "Active"
+    "status": 1
   },
   {
     "last_name": "Martinezson",
@@ -101,7 +101,7 @@ initial_users_data =[
     "email": "isabella@saprevamped.com",
     "password": "$ecretP@ss10",
     "password_confirmation": "$ecretP@ss10",
-    "status": "Active"
+    "status": 1
   },
   {
     "last_name": "Lopez",
@@ -110,7 +110,7 @@ initial_users_data =[
     "email": "daniel.lopez@saprevamped.com",
     "password": "$ecretP@ss11",
     "password_confirmation": "$ecretP@ss11",
-    "status": "Active"
+    "status": 1
   },
   {
     "last_name": "Lopes",
@@ -119,7 +119,7 @@ initial_users_data =[
     "email": "olivia.lopes@saprevamped.com",
     "password": "$ecretP@ss12",
     "password_confirmation": "$ecretP@ss12",
-    "status": "Active"
+    "status": 1
   },
   {
     "last_name": "Wang",
@@ -128,7 +128,7 @@ initial_users_data =[
     "email": "kevin.wang@saprevamped.com",
     "password": "$ecretP@ss13",
     "password_confirmation": "$ecretP@ss13",
-    "status": "Active"
+    "status": 1
   },
   {
     "last_name": "Wangson",
@@ -137,7 +137,7 @@ initial_users_data =[
     "email": "mia.wangson@saprevamped.com",
     "password": "$ecretP@ss14",
     "password_confirmation": "$ecretP@ss14",
-    "status": "Active"
+    "status": 1
   }
 ]
 
