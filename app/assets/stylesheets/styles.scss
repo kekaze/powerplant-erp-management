@@ -122,33 +122,33 @@ hr#navbar-line {
     margin-top: 0px;
 }
 
-section#admin-page {
+#navbar-popover {
+    display: grid;
+    grid-column: 1 / 1;
+    width: 130px;
+    position: absolute;
+    right: 20px;
+    top: -25px;
+    z-index: 5;
+    visibility: hidden;
+
+    button {
+        width: 100%;
+        text-align: left;
+        height: 50px;
+    }
+
+    button, button:active {
+        outline: none;
+        box-shadow: none;
+        transform: none;
+        border: none;
+    }
+}
+
+section#data-section {
     position: relative;
     padding: 0px 10px;
-
-    #navbar-popover {
-        display: grid;
-        grid-column: 1 / 1;
-        width: 130px;
-        position: absolute;
-        right: 20px;
-        top: -25px;
-        z-index: 5;
-        visibility: hidden;
-
-        button {
-            width: 100%;
-            text-align: left;
-            height: 50px;
-        }
-
-        button, button:active {
-            outline: none;
-            box-shadow: none;
-            transform: none;
-            border: none;
-        }
-    }
 
     .nav-link {
         color: white;

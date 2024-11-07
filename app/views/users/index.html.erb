@@ -9,7 +9,7 @@
 <%= render 'shared/partials/navbar' do |f| %>
 		<button type="button" class="btn btn-primary register-button h-auto my-2" data-bs-toggle="modal" data-bs-target="#user-registration-modal">Register a user</button>
 <% end %>
-<section id="admin-page">
+<section id="data-section">
 	<div id="navbar-popover" class="border border-black">
 		<%= form_with url: logout_path, method: :delete do |form| %>
 			<%= form.button "Logout" %>
@@ -83,3 +83,35 @@
 	</table>
 </section>
 <%= render partial: 'shared/partials/user_registration' %>
+
+<script>
+
+document.addEventListener('DOMContentLoaded', () => {
+	const modalElement = document.getElementById("user-registration-modal");
+		const modalTitle = modalElement.querySelector(".modal-header h3");
+		const form = modalElement.querySelector("form");
+
+		const emailField = form.querySelector("input[name='user[email]']");
+		const lastNameField = form.querySelector("input[name='user[last_name]']");
+		const firstNameField = form.querySelector("input[name='user[first_name]']");
+		const role = form.querySelector("select[name='user[role_id]']");
+
+		modalElement.addEventListener("show.bs.modal", function (event) {
+			const button = event.relatedTarget;
+			const action = button.getAttribute("data-action");
+
+			if (action === "edit") {
+				// Change modal title and set form action for editing
+				modalTitle.textContent = "Edit User Details";
+				form.action = `/users/update/${button.getAttribute("data-role-id")}`; // Update URL for editing
+				form.method = "patch"; // Use PATCH for editing
+
+				// Populate fields with current values
+				emailField.value = button.getAttribute("data-email");
+				lastNameField.value = button.getAttribute("data-last-name");
+				firstNameField.value = button.getAttribute("data-first-name");
+				role.value = (button.getAttribute("data-role-id")).toString();
+			}
+		});
+});
+</script>

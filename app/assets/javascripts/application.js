@@ -20,37 +20,9 @@
 document.addEventListener('DOMContentLoaded', () => {
   const navbarPopover = document.getElementById("navbar-popover");
 
-  const modalElement = document.getElementById("user-registration-modal");
-  const modalTitle = modalElement.querySelector(".modal-header h3");
-  const form = modalElement.querySelector("form");
-
-  const emailField = form.querySelector("input[name='user[email]']");
-  const lastNameField = form.querySelector("input[name='user[last_name]']");
-  const firstNameField = form.querySelector("input[name='user[first_name]']");
-  const role = form.querySelector("select[name='user[role_id]']");
-
-  modalElement.addEventListener("show.bs.modal", function (event) {
-    const button = event.relatedTarget;
-    const action = button.getAttribute("data-action");
-
-    if (action === "edit") {
-      // Change modal title and set form action for editing
-      modalTitle.textContent = "Edit User Details";
-      form.action = `/users/update/${button.getAttribute("data-role-id")}`; // Update URL for editing
-      form.method = "patch"; // Use PATCH for editing
-
-      // Populate fields with current values
-      emailField.value = button.getAttribute("data-email");
-      lastNameField.value = button.getAttribute("data-last-name");
-      firstNameField.value = button.getAttribute("data-first-name");
-      role.value = (button.getAttribute("data-role-id")).toString();
-    }
-  });
-
   function togglePopoverVisibility(event) {
       event.preventDefault();
       const popoverVisibility = window.getComputedStyle(navbarPopover).visibility;
-      console.log(popoverVisibility);
       (popoverVisibility != "visible") ? navbarPopover.style.visibility = "visible": navbarPopover.style.visibility = "hidden";
   }
   
