@@ -7,7 +7,7 @@
 </div>
 
 <%= render 'shared/partials/navbar' do |f| %>
-		<button type="button" class="btn btn-primary register-button h-auto my-2" data-bs-toggle="modal" data-bs-target="#user-registration-modal">Register a user</button>
+		<button type="button" class="btn btn-primary register-button h-auto my-2" data-action="register" data-bs-toggle="modal" data-bs-target="#user-registration-modal">Register a user</button>
 <% end %>
 <section id="data-section">
 	<div id="navbar-popover" class="border border-black">
@@ -95,6 +95,11 @@ document.addEventListener('DOMContentLoaded', () => {
 		const lastNameField = form.querySelector("input[name='user[last_name]']");
 		const firstNameField = form.querySelector("input[name='user[first_name]']");
 		const role = form.querySelector("select[name='user[role_id]']");
+		const password = form.querySelector("input[name='user[password]']");
+		const password_confirmation = form.querySelector("input[name='user[password_confirmation]']");
+		
+		const elementsHiddenOnEdit = document.querySelectorAll(".hide-on-edit");
+		const submitButton = form.querySelector(".user-button")
 
 		modalElement.addEventListener("show.bs.modal", function (event) {
 			const button = event.relatedTarget;
@@ -103,14 +108,40 @@ document.addEventListener('DOMContentLoaded', () => {
 			if (action === "edit") {
 				// Change modal title and set form action for editing
 				modalTitle.textContent = "Edit User Details";
-				form.action = `/users/update/${button.getAttribute("data-role-id")}`; // Update URL for editing
-				form.method = "patch"; // Use PATCH for editing
+				form.action = `/users/update/${button.getAttribute("data-role-id")}`;
+				form.method = "patch";
+				submitButton.textContent = "Update";
+				submitButton.value = "Update";
 
 				// Populate fields with current values
 				emailField.value = button.getAttribute("data-email");
 				lastNameField.value = button.getAttribute("data-last-name");
 				firstNameField.value = button.getAttribute("data-first-name");
 				role.value = (button.getAttribute("data-role-id")).toString();
+				password.type = 'hidden';
+				password_confirmation.type = 'hidden';
+
+				elementsHiddenOnEdit.forEach(element => {
+					element.style.visibility = "hidden"
+				})
+			} else {
+				modalTitle.textContent = "Register a new user";
+				form.action = `/users`;
+				form.method = "post";
+				submitButton.textContent = "Register";
+				submitButton.value = "Register";
+
+				// Populate fields with current values
+				emailField.value = '';
+				lastNameField.value = '';
+				firstNameField.value = '';
+				role.value = '0';
+				password.type = 'password';
+				password_confirmation.type = 'password';
+
+				elementsHiddenOnEdit.forEach(element => {
+					element.style.visibility = "visible"
+				})
 			}
 		});
 });

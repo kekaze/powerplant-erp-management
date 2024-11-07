@@ -3,7 +3,7 @@
   <div class="modal-dialog m-0 position-fixed d-flex w-100 h-100 top-0 left-0 justify-content-center align-items-center">
     <div class="modal-content w-25">
       <div class="modal-header d-flex justify-content-between">
-        <h3 class="align-items-center mb-1">Register a new user</h3>
+        <h3 class="align-items-center mb-1"></h3>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <%= form_with(model: @user, url: users_path, remote: true, method: :post, html: {class: 'bg-light p-3 rounded'}) do |form| %>
@@ -30,15 +30,15 @@
           <%= form.text_field :first_name, class: "form-control", placeholder: "First Name" %>
           <%= form.label :first_name, "First Name" %>
         </div>
-        <div class="form-floating mb-3">
+        <div class="form-floating mb-3 hide-on-edit">
           <%= form.password_field :password, class: "form-control", placeholder: "Password"  %>
-          <%= form.label :password, "Password" %>
+          <%= form.label :password, "Password", class: 'hide-on-edit' %>
         </div>
-        <div class="form-floating mb-3">
+        <div class="form-floating mb-3 hide-on-edit">
           <%= form.password_field :password_confirmation, class: "form-control", placeholder: "Confirm Password"  %>
-          <%= form.label :password_confirmation, "Confirm Password" %>
+          <%= form.label :password_confirmation, "Confirm Password", class: 'hide-on-edit' %>
         </div>
-        <%= form.submit 'Register', class: "btn btn-primary w-100"  %>
+        <%= form.submit 'Register', class: "btn btn-primary w-100 user-button"  %>
       <% end %>
     </div>
   </div>
