@@ -20,7 +20,6 @@ class WorkOrdersController < ApplicationController
     @equipment = Equipment.all
     @users = User.all
     @page_title = "Work Order System"
-    render layout: 'navbar'
   end
 
   def show
