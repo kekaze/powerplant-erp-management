@@ -10,11 +10,6 @@
 		<button type="button" class="btn btn-primary register-button h-auto my-2" data-action="register" data-bs-toggle="modal" data-bs-target="#user-form-modal">Register a user</button>
 <% end %>
 <section id="data-section">
-	<div id="navbar-popover" class="border border-black">
-		<%= form_with url: logout_path, method: :delete do |form| %>
-			<%= form.button "Logout" %>
-		<% end %>
-	</div>
 	<table id="users-table">
 		<thead>
 			<tr>

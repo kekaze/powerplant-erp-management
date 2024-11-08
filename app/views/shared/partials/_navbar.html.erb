@@ -9,3 +9,9 @@
   </div>
 </header>
 <hr id="navbar-line">
+
+<div id="navbar-popover" class="border border-black">
+  <%= form_with url: logout_path, method: :delete do |form| %>
+      <%= form.button "Logout" %>
+  <% end %>
+</div>
