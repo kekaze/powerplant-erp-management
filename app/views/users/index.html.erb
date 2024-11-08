@@ -7,7 +7,7 @@
 </div>
 
 <%= render 'shared/partials/navbar' do |f| %>
-		<button type="button" class="btn btn-primary register-button h-auto my-2" data-action="register" data-bs-toggle="modal" data-bs-target="#user-registration-modal">Register a user</button>
+		<button type="button" class="btn btn-primary register-button h-auto my-2" data-action="register" data-bs-toggle="modal" data-bs-target="#user-form-modal">Register a user</button>
 <% end %>
 <section id="data-section">
 	<div id="navbar-popover" class="border border-black">
@@ -63,7 +63,7 @@
 							class="class_buttons" 
 							data-action="edit"
 							data-bs-toggle="modal" 
-							data-bs-target="#user-registration-modal"
+							data-bs-target="#user-form-modal"
 							data-id=<%= user.id %>
 							data-email='<%= user.email %>'
 							data-last-name='<%= user.last_name %>'
@@ -83,7 +83,7 @@
 		</tbody>
 	</table>
 </section>
-<%= render partial: 'shared/partials/user_registration' %>
+<%= render partial: 'shared/partials/user_form' %>
 
 <script>
 	document.addEventListener('DOMContentLoaded', () => {
@@ -105,7 +105,7 @@
 			updateFormModal();
 		};
 
-		const modalElement = document.getElementById("user-registration-modal");
+		const modalElement = document.getElementById("user-form-modal");
 
 		modalElement.addEventListener("show.bs.modal", function (event) {
 		 	const button = event.relatedTarget;
