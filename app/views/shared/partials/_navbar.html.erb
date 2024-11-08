@@ -1,4 +1,4 @@
-<header id="navbar" class="d-flex justify-content-between">
+<header id="navbar" class="d-flex <%= (session[:role] == 1 || session[:role] == 9) ? 'justify-content-between' : 'justify-content-end' %>">
   <%= yield if block_given? %>
   <button id="profile-icon" data-action="open-navbar-popover" ><i class="fa-solid fa-circle-user"></i></button>
 </header>
