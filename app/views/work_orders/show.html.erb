@@ -13,7 +13,7 @@ Conditions in viewing the show a WOR page
 <p id="action_dates">
     Created on <%= @work_order.created_at.strftime("%m/%d/%Y %H:%M") %>&emsp;<!--show after creation-->
     <% if @work_order.status != "Under Review" %>
-        <%  if @work_order.status == "For Approval" %>
+        <%  if @work_order.status == "For approval" %>
             ||&emsp;Reviewed on <%= @work_order.reviewed_at.strftime("%m/%d/%Y %H:%M") %>&emsp;  <!--show when reviewed or when approved-->
         <% elsif @work_order.status == "Approved" || @work_order.status == "Closed" %>
             ||&emsp;Reviewed on <%= @work_order.reviewed_at.strftime("%m/%d/%Y %H:%M") %>&emsp;  <!--show when reviewed or when approved-->
@@ -111,7 +111,7 @@ Conditions in viewing the show a WOR page
                     <% elsif @work_order.status == "Draft" %>
                         <button id="update" name="update" type="submit" value="update">Update</button>
                     <% end %>
-                <% elsif (session[:role] == 2 && @work_order.status == "Under Review") || (session[:role] == 3 && @work_order.status == "For Approval") %>
+                <% elsif (session[:role] == 2 && @work_order.status == "Under Review") || (session[:role] == 3 && @work_order.status == "For approval") %>
                     <button id="approve" type="submit" name="approve" value="approve">Approve</button> <!-- Approve Button for operations reviewers and maintenance approvers if the WOR Status is "Under Review", and "For Approval", respectively -->
                     <button id="reject" type="submit" name="reject"  value="reject">Reject</button> <!-- Reject Button for operations reviewers and maintenance approvers if the WOR Status is "Under Review", and "For Approval", respectively -->
                 <% elsif session[:role] == 1 && (@work_order.status == "Draft" || @work_order.status == nil)%>
