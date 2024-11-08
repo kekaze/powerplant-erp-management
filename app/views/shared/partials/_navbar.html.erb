@@ -1,5 +1,11 @@
-<header id="navbar" class="d-flex <%= (session[:role] == 1 || session[:role] == 9) ? 'justify-content-between' : 'justify-content-end' %>">
-  <%= yield if block_given? %>
-  <button id="profile-icon" data-action="open-navbar-popover" ><i class="fa-solid fa-circle-user"></i></button>
+<header id="navbar" class="container mx-0">
+  <div class="row align-items-center">  
+    <div class="col">
+      <%= yield if block_given? %>
+    </div>
+    <div class="col text-end">
+      <button id="profile-icon" data-action="open-navbar-popover"><i class="fa-solid fa-circle-user"></i></button>
+    </div>
+  </div>
 </header>
 <hr id="navbar-line">
