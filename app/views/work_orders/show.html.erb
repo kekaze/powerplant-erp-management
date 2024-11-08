@@ -6,9 +6,9 @@ Conditions in viewing the show a WOR page
 3. If status is "Approved", everyone loses their buttons except regular accounts from maintenance sees
     "On-going", "Return" button
 -->
-<%= render 'shared/partials/navbar' %>
-
-<h1>Viewing WOR# <%= @work_order.wor_number %></h1>
+<%= render 'shared/partials/navbar' do |f| %>
+    <h1>Viewing WOR# <%= @work_order.wor_number %></h1>
+<% end %>
 <span>Status: <%= @work_order.status %></span> <!--show colored circles depending on status-->
 <p id="action_dates">
     Created on <%= @work_order.created_at.strftime("%m/%d/%Y %H:%M") %>&emsp;<!--show after creation-->
@@ -42,9 +42,9 @@ Conditions in viewing the show a WOR page
                     <td>
                         <% @priorities.each do |priority| %>
                             <% if priority == @work_order.priority %>
-                                <label class="priority"><input type="radio" name="priority" value="<%= priority %>" checked disabled><%= priority %></label>
+                                <label class="priority"><input type="radio" name="priority" value="<%= priority %>" checked disabled> <%= priority %></label>
                             <% else %>
-                                <label class="priority"><input type="radio" name="priority" value="<%= priority %>" disabled><%= priority %></label>
+                                <label class="priority"><input type="radio" name="priority" value="<%= priority %>" disabled> <%= priority %></label>
                             <% end %>
                         <% end %>
                     </td>
