@@ -59,14 +59,15 @@
 					<td id="delete_icon">
 						<button 
 							type="button" 
-							id="edit" 
+							id="edit"
 							class="class_buttons" 
 							data-action="edit"
 							data-bs-toggle="modal" 
 							data-bs-target="#user-registration-modal"
-							data-email=<%= user.email %>
-							data-last-name=<%= user.last_name %>
-							data-first-name=<%= user.first_name %>
+							data-id=<%= user.id %>
+							data-email='<%= user.email %>'
+							data-last-name='<%= user.last_name %>'
+							data-first-name='<%= user.first_name %>'
 							data-role-id=<%= user.role_id %>
 						>
 							<i class="fa-solid fa-pen"></i>
@@ -85,64 +86,93 @@
 <%= render partial: 'shared/partials/user_registration' %>
 
 <script>
+	document.addEventListener('DOMContentLoaded', () => {
+		let registerNewUser = true;
 
-document.addEventListener('DOMContentLoaded', () => {
-	const modalElement = document.getElementById("user-registration-modal");
-		const modalTitle = modalElement.querySelector(".modal-header h3");
-		const form = modalElement.querySelector("form");
+		function updateFormModal() {
+			console.log(registerNewUser);
+			if (registerNewUser === true) {
+				$('.user-registration').show();
+				$('.user-edit').hide();
+			} else {
+				$('.user-edit').show();
+				$('.user-registration').hide();
+			}
+		}
 
-		const emailField = form.querySelector("input[name='user[email]']");
-		const lastNameField = form.querySelector("input[name='user[last_name]']");
-		const firstNameField = form.querySelector("input[name='user[first_name]']");
-		const role = form.querySelector("select[name='user[role_id]']");
-		const password = form.querySelector("input[name='user[password]']");
-		const password_confirmation = form.querySelector("input[name='user[password_confirmation]']");
-		
-		const elementsHiddenOnEdit = document.querySelectorAll(".hide-on-edit");
-		const submitButton = form.querySelector(".user-button")
+		function setRegisterNewUser(x) {
+			registerNewUser = x;
+			updateFormModal();
+		};
+
+		const modalElement = document.getElementById("user-registration-modal");
 
 		modalElement.addEventListener("show.bs.modal", function (event) {
-			const button = event.relatedTarget;
-			const action = button.getAttribute("data-action");
+		 	const button = event.relatedTarget;
+		 	const action = button.getAttribute("data-action");
+			const userForm = $('form#user-form').first()
 
 			if (action === "edit") {
-				// Change modal title and set form action for editing
-				modalTitle.textContent = "Edit User Details";
-				form.action = `/users/update/${button.getAttribute("data-role-id")}`;
-				form.method = "patch";
-				submitButton.textContent = "Update";
-				submitButton.value = "Update";
+				setRegisterNewUser(false);
+				userForm.attr('action', `/users/${button.getAttribute("data-id")}`);
+				userForm.append("<input type='hidden' name='_method' value='patch' autocomplete='off' id='hidden-input-patch'>");
+				console.log($('input[name="user[email]"]')[0]);
+				$('input[name="user[email]"]')[0].value = button.getAttribute("data-email");
+				$('input[name="user[last_name]"]').first().val(button.getAttribute("data-last-name"));
+				$('input[name="user[first_name]"]').first().val(button.getAttribute("data-first-name"));
+				$('select[name="user[role_id]"]').first().val((button.getAttribute("data-role-id")).toString());
 
-				// Populate fields with current values
-				emailField.value = button.getAttribute("data-email");
-				lastNameField.value = button.getAttribute("data-last-name");
-				firstNameField.value = button.getAttribute("data-first-name");
-				role.value = (button.getAttribute("data-role-id")).toString();
-				password.type = 'hidden';
-				password_confirmation.type = 'hidden';
+			} else if (action === "register") {
+				setRegisterNewUser(true);
+				userForm.action = '/users';
+				if ($('#hidden-input-patch').length > 0) {
+					$('#hidden-input-patch').remove();
+				}
 
-				elementsHiddenOnEdit.forEach(element => {
-					element.style.visibility = "hidden"
-				})
-			} else {
-				modalTitle.textContent = "Register a new user";
-				form.action = `/users`;
-				form.method = "post";
-				submitButton.textContent = "Register";
-				submitButton.value = "Register";
-
-				// Populate fields with current values
-				emailField.value = '';
-				lastNameField.value = '';
-				firstNameField.value = '';
-				role.value = '0';
-				password.type = 'password';
-				password_confirmation.type = 'password';
-
-				elementsHiddenOnEdit.forEach(element => {
-					element.style.visibility = "visible"
-				})
+				$('input[name="user[email]"]').first().val('');
+				$('input[name="user[last_name]"]').first().val('');
+				$('input[name="user[first_name]"]').first().val('');
+				$('select[name="user[role_id]"]').first().val('0');
 			}
 		});
-});
+		// 	if (action === "edit") {
+		// 		// Change modal title and set form action for editing
+		// 		modalTitle.textContent = "Edit User Details";
+		// 		form.action = `/users/update/${button.getAttribute("data-role-id")}`;
+		// 		form.method = "patch";
+		// 		submitButton.textContent = "Update";
+		// 		submitButton.value = "Update";
+
+		// 		// Populate fields with current values
+		// 		emailField.value = button.getAttribute("data-email");
+		// 		lastNameField.value = button.getAttribute("data-last-name");
+		// 		firstNameField.value = button.getAttribute("data-first-name");
+		// 		role.value = (button.getAttribute("data-role-id")).toString();
+		// 		password.type = 'hidden';
+		// 		password_confirmation.type = 'hidden';
+
+		// 		elementsHiddenOnEdit.forEach(element => {
+		// 			element.style.visibility = "hidden"
+		// 		})
+		// 	} else {
+		// 		modalTitle.textContent = "Register a new user";
+		// 		form.action = `/users`;
+		// 		form.method = "post";
+		// 		submitButton.textContent = "Register";
+		// 		submitButton.value = "Register";
+
+		// 		// Populate fields with current values
+		// 		emailField.value = '';
+		// 		lastNameField.value = '';
+		// 		firstNameField.value = '';
+		// 		role.value = '0';
+		// 		password.type = 'password';
+		// 		password_confirmation.type = 'password';
+
+		// 		elementsHiddenOnEdit.forEach(element => {
+		// 			element.style.visibility = "visible"
+		// 		})
+		// 	}
+		// });
+	});
 </script>

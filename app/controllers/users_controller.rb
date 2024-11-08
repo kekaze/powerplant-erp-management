@@ -51,9 +51,10 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    @user.update(email: params[:email], last_name: params[:last_name], first_name: params[:first_name], role_id: params[:role_id])
+    @user.update(params.require(:user).permit(:email, :last_name, :first_name, :role_id))
     
     flash[:user_errors] = @user.errors.full_messages
+    print(flash[:user_errors])
     redirect_to admin_path
   end
 
