@@ -111,6 +111,8 @@ class WorkOrdersController < ApplicationController
       equipment = Equipment.where(unit_name: params[:unit_name], identifier: params[:equipment_identifier]).first
       @work_order.equipment_id = equipment ? equipment.id : nil
       @work_order.requestor_id = session[:user_id].to_i
+      @work_order.made_by_shortcut = session[:isShortcut]
+
       if params[:draft]
         @work_order.status = "Draft"
       else
