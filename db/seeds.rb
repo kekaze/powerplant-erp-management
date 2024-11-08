@@ -9,8 +9,12 @@
 #   end
 
 User.destroy_all
+WorkOrder.destroy_all
+Equipment.destroy_all
 
 ActiveRecord::Base.connection.reset_pk_sequence!('users')
+ActiveRecord::Base.connection.reset_pk_sequence!('work_orders')
+ActiveRecord::Base.connection.reset_pk_sequence!('equipment')
 
 initial_users_data =[
   {
@@ -141,6 +145,76 @@ initial_users_data =[
   }
 ]
 
+initial_equipment_data = [
+  {
+    "unit_name": "Engine 1",
+    "identifier": "Main Engine",
+  },
+  {
+    "unit_name": "Engine 2",
+    "identifier": "Main Engine",
+  },
+  {
+    "unit_name": "Engine 3",
+    "identifier": "Main Engine",
+  },
+  {
+    "unit_name": "Engine 4",
+    "identifier": "Main Engine",
+  },
+  {
+    "unit_name": "Engine 5",
+    "identifier": "Main Engine",
+  },
+  {
+    "unit_name": "Air Compressor 1",
+    "identifier": "Starting Air Compressor",
+  },
+  {
+    "unit_name": "Air Compressor 2",
+    "identifier": "Starting Air Compressor",
+  },
+  {
+    "unit_name": "Booster Pump 1",
+    "identifier": "Booster Pump",
+  },
+  {
+    "unit_name": "Booster Pump 2",
+    "identifier": "Booster Pump",
+  },
+  {
+    "unit_name": "Booster Pump 3",
+    "identifier": "Booster Pump",
+  },
+]
+
+initial_workorders_data =[
+  {
+    "wor_number": 120000001,
+    "status": "For approval",
+    "inspected_at": DateTime.new(2024, 11, 8, 14, 30, 0),
+    "priority": "Low",
+    "running_hours": 9452,
+    "description": "Engine 1 has unusual sound",
+    "equipment_id": 1,
+    "requestor_id": 1,
+    "reviewer_id": 3,
+    "approver_id": nil,
+    "closer_id": nil,
+    "reviewed_at": DateTime.new(2024, 11, 8, 14, 35, 0),
+    "approved_at": nil,
+    "closed_at": nil,
+  }
+]
+
 initial_users_data.each do |user|
   User.create!(user)
+end
+
+initial_equipment_data.each do |equipment|
+  Equipment.create!(equipment)
+end
+
+initial_workorders_data.each do |work_order|
+  WorkOrder.create!(work_order)
 end
