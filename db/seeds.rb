@@ -204,6 +204,7 @@ initial_workorders_data =[
     "reviewed_at": DateTime.new(2024, 11, 8, 14, 35, 0),
     "approved_at": nil,
     "closed_at": nil,
+    "made_by_shortcut": false
   }
 ]
 
