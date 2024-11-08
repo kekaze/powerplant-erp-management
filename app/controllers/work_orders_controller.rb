@@ -42,7 +42,6 @@ class WorkOrdersController < ApplicationController
       else
         @action = "/close"
       end
-      render layout: 'wor'
     else #if session is not present, perform logout process to avoid unauthorized access
       redirect_to "/users/logout"
     end
@@ -87,7 +86,6 @@ class WorkOrdersController < ApplicationController
   def new
     redirect_to "/worsystem" if session[:role] < 5 && session[:role] != 1
     @work_order = WorkOrder.new
-    render layout: 'wor'
   end
 
   def continue

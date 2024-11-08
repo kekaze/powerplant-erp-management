@@ -147,44 +147,44 @@ initial_users_data =[
 
 initial_equipment_data = [
   {
-    "unit_name": "Engine 1",
-    "identifier": "Main Engine",
+    "unit_name": "Engine",
+    "identifier": "Alpha",
   },
   {
-    "unit_name": "Engine 2",
-    "identifier": "Main Engine",
+    "unit_name": "Engine",
+    "identifier": "Bravo",
   },
   {
-    "unit_name": "Engine 3",
-    "identifier": "Main Engine",
+    "unit_name": "Engine",
+    "identifier": "Charlie",
   },
   {
-    "unit_name": "Engine 4",
-    "identifier": "Main Engine",
+    "unit_name": "Engine",
+    "identifier": "Delta",
   },
   {
-    "unit_name": "Engine 5",
-    "identifier": "Main Engine",
+    "unit_name": "Generator",
+    "identifier": "Alpha",
   },
   {
-    "unit_name": "Air Compressor 1",
-    "identifier": "Starting Air Compressor",
+    "unit_name": "Generator",
+    "identifier": "Bravo",
   },
   {
-    "unit_name": "Air Compressor 2",
-    "identifier": "Starting Air Compressor",
+    "unit_name": "Oil Purifier",
+    "identifier": "Charlie",
   },
   {
-    "unit_name": "Booster Pump 1",
-    "identifier": "Booster Pump",
+    "unit_name": "Oil Purifier",
+    "identifier": "Delta",
   },
   {
-    "unit_name": "Booster Pump 2",
-    "identifier": "Booster Pump",
+    "unit_name": "Booster Unit",
+    "identifier": "Alpha",
   },
   {
-    "unit_name": "Booster Pump 3",
-    "identifier": "Booster Pump",
+    "unit_name": "Booster Unit",
+    "identifier": "Bravo",
   },
 ]
 
@@ -195,7 +195,7 @@ initial_workorders_data =[
     "inspected_at": DateTime.new(2024, 11, 8, 14, 30, 0),
     "priority": "Low",
     "running_hours": 9452,
-    "description": "Engine 1 has unusual sound",
+    "description": "Unusual sound",
     "equipment_id": 1,
     "requestor_id": 1,
     "reviewer_id": 3,

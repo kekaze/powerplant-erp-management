@@ -6,6 +6,8 @@ Conditions in viewing the show a WOR page
 3. If status is "Approved", everyone loses their buttons except regular accounts from maintenance sees
     "On-going", "Return" button
 -->
+<%= render 'shared/partials/navbar' %>
+
 <h1>Viewing WOR# <%= @work_order.wor_number %></h1>
 <span>Status: <%= @work_order.status %></span> <!--show colored circles depending on status-->
 <p id="action_dates">
