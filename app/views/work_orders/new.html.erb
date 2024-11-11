@@ -28,19 +28,14 @@
                 <td>
                     <select name="unit_name" id="unit_name">
                         <option disabled selected hidden></option>
-                        <option value="Engine">Engine</option>
-                        <option value="Generator">Generator</option>
-                        <option value="Oil Purifier">Oil Purifier</option>
-                        <option value="Booster Unit">Booster Unit</option>
+                        <% @equipment.each do |equipment| %>
+                            <option value=<%= equipment.unit_name %>><%= equipment.unit_name %></option>
+                        <% end%>
                     </select>
                 </td>
                 <td>
                     <select name="equipment_identifier" id="equipment_identifier">
                         <option disabled selected hidden></option>
-                        <option value="Alpha">Alpha</option>
-                        <option value="Bravo">Bravo</option>
-                        <option value="Charlie">Charlie</option>
-                        <option value="Delta">Delta</option>
                     </select>
                 </td>
                 <td><input type="text" name="work_order[running_hours]"></td>
@@ -67,3 +62,10 @@
         <% end %>
     </form>
 </div>
+<script>
+    $(document).ready(function() {
+        // $("select[name='unit_name']").on("change", () => {
+            console.log("Hello!!");
+        // })
+    });
+</script>

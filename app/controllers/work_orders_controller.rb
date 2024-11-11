@@ -85,6 +85,7 @@ class WorkOrdersController < ApplicationController
 
   def new
     redirect_to "/worsystem" if session[:role] < 5 && session[:role] != 1
+    @equipment = Equipment.select("unit_name").group("unit_name")
     @work_order = WorkOrder.new
   end
 
