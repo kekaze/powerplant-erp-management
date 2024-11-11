@@ -29,14 +29,12 @@
                     <select name="unit_name" id="unit_name">
                         <option disabled selected hidden></option>
                         <% @equipment.each do |equipment| %>
-                            <option value=<%= equipment.unit_name %>><%= equipment.unit_name %></option>
+                            <option value="<%= equipment.unit_name %>" ><%= equipment.unit_name %></option>
                         <% end%>
                     </select>
                 </td>
                 <td>
-                    <select name="equipment_identifier" id="equipment_identifier">
-                        <option disabled selected hidden></option>
-                    </select>
+                    <select name="equipment_identifier" id="equipment_identifier"></select>
                 </td>
                 <td><input type="text" name="work_order[running_hours]"></td>
             </tr>
@@ -64,8 +62,20 @@
 </div>
 <script>
     $(document).ready(function() {
-        // $("select[name='unit_name']").on("change", () => {
-            console.log("Hello!!");
-        // })
+        $("select[name='unit_name']").on("change", () => {
+            $.ajax({
+                url: "/ajax/equipment",
+                method: "GET",
+                data: { unit_name: $("select[name='unit_name']").val() },
+                dataType: "html",
+                success: (data) => {
+                    $("select[name='equipment_identifier']").empty();
+                    $("select[name='equipment_identifier']").append(data);
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX error:", status, error);
+                }
+            })
+        })
     });
 </script>

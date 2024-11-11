@@ -32,6 +32,8 @@ Rails.application.routes.draw do
   get 'worsystem/:wor_number/revoke' => "work_orders#revoke"
   post 'worsystem/:wor_number/close' => "work_orders#close"
 
+  get 'ajax/equipment' => 'ajax_requests#get_equipment'
+
   
   post 'reservations/create' => "reservations#create"
 
