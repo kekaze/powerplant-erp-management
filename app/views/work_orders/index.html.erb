@@ -1,47 +1,49 @@
-<%= render 'shared/partials/navbar' do |f| %>
-    <% if session[:role] == 1 %>
-        <form action="/worsystem/new" method="get">
-            <button type="submit" class="btn btn-primary register-button h-auto my-2">Create WOR</button>
-        </form>
+<div id="work_orders_page_container">
+    <%= render 'shared/partials/navbar' do |f| %>
+        <% if session[:role] == 1 %>
+            <form action="/worsystem/new" method="get">
+                <button type="submit" class="btn btn-primary register-button h-auto my-2">Create WOR</button>
+            </form>
+        <% end %>
     <% end %>
-<% end %>
-<section id="data-section">
-    <table id="wor-table">
-        <thead>
-            <tr>
-                <th>WOR No.</th>
-                <th>Priority</th>
-                <th>Description</th>
-                <th>Unit</th>
-                <th>Identifier</th>
-                <th>Status</th> <!--Remove drafts for maintenance team side-->
-                <th>Inspected on</th>
-                <th>Created on</th>
-                <th>Reviewed on</th>
-                <th>Approved on</th>
-                <th>Closed on</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% @work_orders.each do |work_order| %>
+    <section id="data-section">
+        <table id="wor-table">
+            <thead>
                 <tr>
-                    <% if work_order.status == "Draft" %>
-                        <td><a href="/worsystem/<%= work_order.wor_number %>/continue"><%= work_order.wor_number %></td>
-                    <% else %>
-                        <td><a href="/worsystem/<%= work_order.wor_number %>"><%= work_order.wor_number %></td>
-                    <% end %>
-                    <td><%= work_order.priority %></td>
-                    <td><%= work_order.description %></td>
-                    <td><%= @equipment[work_order.equipment_id].unit_name %></td>
-                    <td><%= @equipment[work_order.equipment_id].identifier %></td>
-                    <td><%= work_order.status %></td>
-                    <td><%= work_order.inspected_at.strftime("%m/%d/%Y %H:%M") %></td>
-                    <td><%= work_order.created_at.strftime("%m/%d/%Y %H:%M") %></td>
-                    <td><%= work_order.reviewed_at&.strftime("%m/%d/%Y %H:%M").presence || '' %></td>
-                    <td><%= work_order.approved_at&.strftime("%m/%d/%Y %H:%M").presence || '' %></td>
-                    <td><%= work_order.closed_at&.strftime("%m/%d/%Y %H:%M").presence || '' %></td>
+                    <th>WOR No.</th>
+                    <th>Priority</th>
+                    <th>Description</th>
+                    <th>Unit</th>
+                    <th>Identifier</th>
+                    <th>Status</th> <!--Remove drafts for maintenance team side-->
+                    <th>Inspected on</th>
+                    <th>Created on</th>
+                    <th>Reviewed on</th>
+                    <th>Approved on</th>
+                    <th>Closed on</th>
                 </tr>
-            <% end %>
-        </tbody>
-    </table>
-</section>
+            </thead>
+            <tbody>
+                <% @work_orders.each do |work_order| %>
+                    <tr>
+                        <% if work_order.status == "Draft" %>
+                            <td><a href="/worsystem/<%= work_order.wor_number %>/continue"><%= work_order.wor_number %></td>
+                        <% else %>
+                            <td><a href="/worsystem/<%= work_order.wor_number %>"><%= work_order.wor_number %></td>
+                        <% end %>
+                        <td><%= work_order.priority %></td>
+                        <td><%= work_order.description %></td>
+                        <td><%= @equipment[work_order.equipment_id].unit_name %></td>
+                        <td><%= @equipment[work_order.equipment_id].identifier %></td>
+                        <td><%= work_order.status %></td>
+                        <td><%= work_order.inspected_at.strftime("%m/%d/%Y %H:%M") %></td>
+                        <td><%= work_order.created_at.strftime("%m/%d/%Y %H:%M") %></td>
+                        <td><%= work_order.reviewed_at&.strftime("%m/%d/%Y %H:%M").presence || '' %></td>
+                        <td><%= work_order.approved_at&.strftime("%m/%d/%Y %H:%M").presence || '' %></td>
+                        <td><%= work_order.closed_at&.strftime("%m/%d/%Y %H:%M").presence || '' %></td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </section>
+</div>

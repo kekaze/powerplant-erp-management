@@ -6,155 +6,159 @@ Conditions in viewing the show a WOR page
 3. If status is "Approved", everyone loses their buttons except regular accounts from maintenance sees
     "On-going", "Return" button
 -->
-<%= render 'shared/partials/navbar' do |f| %>
-    <h1>Viewing WOR# <%= @work_order.wor_number %></h1>
-<% end %>
-<span>Status: <%= @work_order.status %></span> <!--show colored circles depending on status-->
-<p id="action_dates">
-    Created on <%= @work_order.created_at.strftime("%m/%d/%Y %H:%M") %>&emsp;<!--show after creation-->
-    <% if @work_order.status != "Under Review" %>
-        <%  if @work_order.status == "For approval" %>
-            ||&emsp;Reviewed on <%= @work_order.reviewed_at.strftime("%m/%d/%Y %H:%M") %>&emsp;  <!--show when reviewed or when approved-->
-        <% elsif @work_order.status == "Approved" || @work_order.status == "Closed" %>
-            ||&emsp;Reviewed on <%= @work_order.reviewed_at.strftime("%m/%d/%Y %H:%M") %>&emsp;  <!--show when reviewed or when approved-->
-            ||&emsp;Approved on <%= @work_order.approved_at.strftime("%m/%d/%Y %H:%M") %>  <!--show when approved-->
-        <% end %>
+<div id="work_orders_page_container">
+    <%= render 'shared/partials/navbar' do |f| %>
+        <h1>Viewing WOR# <%= @work_order.wor_number %></h1>
     <% end %>
-</p>
-<nav>
-    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <button class="nav-link active" id="nav-details-tab" data-bs-toggle="tab" data-bs-target="#nav-details" type="button" role="tab" aria-controls="nav-details" aria-selected="true">Details</button>
-        <button class="nav-link" id="nav-reservation-tab" data-bs-toggle="tab" data-bs-target="#nav-reservation" type="button" role="tab" aria-controls="nav-reservation" aria-selected="false">Reservation</button>
-    </div>
-</nav>
-<div class="tab-content" id="nav-tabContent">
-    <div class="tab-pane fade show active" id="nav-details" role="tabpanel" aria-labelledby="nav-details-tab" tabindex="0">
-        <form id="wor_details" action="/worsystem/<%= @work_order.wor_number %><%= @action %>" method="post">
-            <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
-            <table style="width:800px">
-                <tr>
-                    <th><h5>Inspected On</h5></th>
-                    <th><h5>Priority</h5></th>
-                    <th><h5>Closed on</h5></th>
-                </tr>
-                <tr>
-                    <td><input type="text" id="observe_datetime" value="<%= @work_order.inspected_at.strftime("%m/%d/%Y %H:%M") %>" disabled></td>
-                    <td>
-                        <% @priorities.each do |priority| %>
-                            <% if priority == @work_order.priority %>
-                                <label class="priority"><input type="radio" name="priority" value="<%= priority %>" checked disabled> <%= priority %></label>
-                            <% else %>
-                                <label class="priority"><input type="radio" name="priority" value="<%= priority %>" disabled> <%= priority %></label>
-                            <% end %>
-                        <% end %>
-                    </td>
-                    <td><input type="text" id="closed_datetime" value="<%= @work_order.closed_at&.strftime("%m/%d/%Y %H:%M").presence || '' %>" disabled></td>
-                </tr>
-            </table>
-            <table style="width:700px">
-                <tr>
-                    <th><h5>Unit Name</h5></th>
-                    <th><h5>Equipment Identifier</h5></th> <!-- should dynamically generate different codes depending on the selected equipment -->
-                    <th><h5>Running Hours</h5></th>
-                </tr>
-                <tr>
-                    <td>
-                        <select name="unit_name" id="unit_name" disabled>
-                            <% @unit_names.each do |unit| %>
-                                <% if unit == @equipment.unit_name %>
-                                    <option value="<%= unit %>" selected><%= unit %></option>
-                                <% end %>
-                            <% end %>
-                        </select>
-                    </td>
-                    <td>
-                        <select name="equipment_identifier" id="equipment_identifier" disabled>
-                            <% @identifiers.each do |identifier| %>
-                                <% if identifier == @equipment.identifier %>
-                                    <option value="<%= identifier %>" selected><%= identifier %></option>
-                                <% end %>
-                            <% end %>
-                        </select>
-                    </td>
-                    <td><input type="text" id="running_hours" value="<%= number_with_precision(@work_order.running_hours, precision: 2, delimiter: ',', separator: '.') %>" disabled></td>
-                </tr>
-            </table>
-            <h5>Discrepancy Description</h5>
-            <textarea name="discrepancy" disabled><%= @work_order.description %></textarea>
-            <div id="footer">
-                <section>
-                    <h5>Requestor</h5>
-                    <input type="text" id="requestor" value="<%= @work_order.requestor.first_name %> <%= @work_order.requestor.last_name %>" disabled>
-                </section>
-                <section>
-                    <h5>Reviewer</h5>
-                    <input type="text" id="reviewer" value="<%= @work_order.reviewer&.first_name.presence || '' %> <%= @work_order.reviewer&.last_name.presence || '' %>" disabled>
-                </section>
-                <section>
-                    <h5>Approver</h5>
-                    <input type="text" id="approver" value="<%= @work_order.approver&.first_name.presence || '' %> <%= @work_order.approver&.last_name.presence || '' %>" disabled>
-                </section>
-                <section>
-                    <h5>Closed by</h5>
-                    <input type="text" id="closed_by" value="<%= @work_order.closer&.first_name.presence || '' %> <%= @work_order.closer&.last_name.presence || '' %>" disabled>
-                </section>
+    <div id="work_order_details_container">
+        <span>Status: <%= @work_order.status %></span> <!--show colored circles depending on status-->
+        <p id="action_dates">
+            Created on <%= @work_order.created_at.strftime("%m/%d/%Y %H:%M") %>&emsp;<!--show after creation-->
+            <% if @work_order.status != "Under Review" %>
+                <%  if @work_order.status == "For approval" %>
+                    ||&emsp;Reviewed on <%= @work_order.reviewed_at.strftime("%m/%d/%Y %H:%M") %>&emsp;  <!--show when reviewed or when approved-->
+                <% elsif @work_order.status == "Approved" || @work_order.status == "Closed" %>
+                    ||&emsp;Reviewed on <%= @work_order.reviewed_at.strftime("%m/%d/%Y %H:%M") %>&emsp;  <!--show when reviewed or when approved-->
+                    ||&emsp;Approved on <%= @work_order.approved_at.strftime("%m/%d/%Y %H:%M") %>  <!--show when approved-->
+                <% end %>
+            <% end %>
+        </p>
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link active" id="nav-details-tab" data-bs-toggle="tab" data-bs-target="#nav-details" type="button" role="tab" aria-controls="nav-details" aria-selected="true">Details</button>
+                <button class="nav-link" id="nav-reservation-tab" data-bs-toggle="tab" data-bs-target="#nav-reservation" type="button" role="tab" aria-controls="nav-reservation" aria-selected="false">Reservation</button>
             </div>
-            <section>
-                <% if session[:role] == 4 && @work_order.status == "Approved" %>
-                <button id="close" type="submit" value="close">Close</button> 
-                <% end %>
-                <% if session[:role] == 1 || session[:role] == 4 %>
-                    <% if @work_order.status != "Cancelled" && @work_order.status != "Draft" && @work_order.status != "Revoked" %>
-                        <button id="revoke" name="revoke" type="submit" value="revoke">Revoke</button> <!-- Revoke Button for WOR creators if the WOR Status is "Under Review", and creators wants to cancel or edit the WOR -->
-                    <% elsif @work_order.status == "Revoked" %>
-                        <button id="cancel" name="cancel" type="submit" value="cancel">Cancel</button> <!-- Cancel Button for WOR creators if the WOR Status is "Revoked" to change WOR status to cancelled -->
-                    <% elsif @work_order.status == "Draft" %>
-                        <button id="update" name="update" type="submit" value="update">Update</button>
-                    <% end %>
-                <% elsif (session[:role] == 2 && @work_order.status == "Under Review") || (session[:role] == 3 && @work_order.status == "For approval") %>
-                    <button id="approve" type="submit" name="approve" value="approve">Approve</button> <!-- Approve Button for operations reviewers and maintenance approvers if the WOR Status is "Under Review", and "For Approval", respectively -->
-                    <button id="reject" type="submit" name="reject"  value="reject">Reject</button> <!-- Reject Button for operations reviewers and maintenance approvers if the WOR Status is "Under Review", and "For Approval", respectively -->
-                <% elsif session[:role] == 1 && (@work_order.status == "Draft" || @work_order.status == nil)%>
-                    <button id="draft" type="submit" value="draft">Save as draft</button> <!-- Save as draft Button for WOR creators if the WOR Status is "null" and they want to change it "draft" -->    
-                <% end %>
-                <a href="/worsystem" id="return">Return to WORs List</a>
-            </section>
-        </form>
-    </div>
-
-    <!--Materials reservation page for maintenance-->
-    <div class="tab-pane fade" id="nav-reservation" role="tabpanel" aria-labelledby="nav-reservation-tab" tabindex="0">
-        <form id="reservation_form" action="/reservations/create" method="post">
-            <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
-            <input type="hidden" value="4200000001"> <!--wor number-->
-            <label>Reservation Number<input type="text" name="gr_number" value="" disabled></label>
-            <label>Posted on<input type="text" name="posted_at" value="04/11/2024 11:35 AM" disabled></label>
-            <table id="reservation">
-                <thead>
-                    <tr>
-                        <th>Material Code</th>
-                        <th>Description</th>
-                        <th>Qty</th>
-                        <th>Unit Cost</th> <!-- get via average -->
-                        <th>Subtotal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% for i in 1..5 %>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-details" role="tabpanel" aria-labelledby="nav-details-tab" tabindex="0">
+                <form id="wor_details" action="/worsystem/<%= @work_order.wor_number %><%= @action %>" method="post">
+                    <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+                    <table style="width:800px">
                         <tr>
-                            <td><input class="matcode" type="text" name="matcode_<%= i %>"></td>
-                            <td class="description"></td>
-                            <td><input class="quantity" type="text" name="item_quantity_<%= i %>"></td>
-                            <td></td>
-                            <td></td>
+                            <th><h5>Inspected On</h5></th>
+                            <th><h5>Priority</h5></th>
+                            <th><h5>Closed on</h5></th>
                         </tr>
-                    <% end %>
-                </tbody>
-            </table>
-            <section>
-                <button id="submit" type="submit" name="reserve" value="reserve">Reserve</button>
-                <!-- <button id="revoke" type="submit" value="revoke">Revoke</button> -->
-            </section>
-        </form>
+                        <tr>
+                            <td><input type="text" id="observe_datetime" value="<%= @work_order.inspected_at.strftime("%m/%d/%Y %H:%M") %>" disabled></td>
+                            <td>
+                                <% @priorities.each do |priority| %>
+                                    <% if priority == @work_order.priority %>
+                                        <label class="priority"><input type="radio" name="priority" value="<%= priority %>" checked disabled> <%= priority %></label>
+                                    <% else %>
+                                        <label class="priority"><input type="radio" name="priority" value="<%= priority %>" disabled> <%= priority %></label>
+                                    <% end %>
+                                <% end %>
+                            </td>
+                            <td><input type="text" id="closed_datetime" value="<%= @work_order.closed_at&.strftime("%m/%d/%Y %H:%M").presence || '' %>" disabled></td>
+                        </tr>
+                    </table>
+                    <table style="width:700px">
+                        <tr>
+                            <th><h5>Unit Name</h5></th>
+                            <th><h5>Equipment Identifier</h5></th> <!-- should dynamically generate different codes depending on the selected equipment -->
+                            <th><h5>Running Hours</h5></th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="unit_name" id="unit_name" disabled>
+                                    <% @unit_names.each do |unit| %>
+                                        <% if unit == @equipment.unit_name %>
+                                            <option value="<%= unit %>" selected><%= unit %></option>
+                                        <% end %>
+                                    <% end %>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="equipment_identifier" id="equipment_identifier" disabled>
+                                    <% @identifiers.each do |identifier| %>
+                                        <% if identifier == @equipment.identifier %>
+                                            <option value="<%= identifier %>" selected><%= identifier %></option>
+                                        <% end %>
+                                    <% end %>
+                                </select>
+                            </td>
+                            <td><input type="text" id="running_hours" value="<%= number_with_precision(@work_order.running_hours, precision: 2, delimiter: ',', separator: '.') %>" disabled></td>
+                        </tr>
+                    </table>
+                    <h5>Discrepancy Description</h5>
+                    <textarea name="discrepancy" disabled><%= @work_order.description %></textarea>
+                    <div id="footer">
+                        <section>
+                            <h5>Requestor</h5>
+                            <input type="text" id="requestor" value="<%= @work_order.requestor.first_name %> <%= @work_order.requestor.last_name %>" disabled>
+                        </section>
+                        <section>
+                            <h5>Reviewer</h5>
+                            <input type="text" id="reviewer" value="<%= @work_order.reviewer&.first_name.presence || '' %> <%= @work_order.reviewer&.last_name.presence || '' %>" disabled>
+                        </section>
+                        <section>
+                            <h5>Approver</h5>
+                            <input type="text" id="approver" value="<%= @work_order.approver&.first_name.presence || '' %> <%= @work_order.approver&.last_name.presence || '' %>" disabled>
+                        </section>
+                        <section>
+                            <h5>Closed by</h5>
+                            <input type="text" id="closed_by" value="<%= @work_order.closer&.first_name.presence || '' %> <%= @work_order.closer&.last_name.presence || '' %>" disabled>
+                        </section>
+                    </div>
+                    <section>
+                        <% if session[:role] == 4 && @work_order.status == "Approved" %>
+                        <button id="close" type="submit" value="close">Close</button> 
+                        <% end %>
+                        <% if session[:role] == 1 || session[:role] == 4 %>
+                            <% if @work_order.status != "Cancelled" && @work_order.status != "Draft" && @work_order.status != "Revoked" %>
+                                <button id="revoke" name="revoke" type="submit" value="revoke">Revoke</button> <!-- Revoke Button for WOR creators if the WOR Status is "Under Review", and creators wants to cancel or edit the WOR -->
+                            <% elsif @work_order.status == "Revoked" %>
+                                <button id="cancel" name="cancel" type="submit" value="cancel">Cancel</button> <!-- Cancel Button for WOR creators if the WOR Status is "Revoked" to change WOR status to cancelled -->
+                            <% elsif @work_order.status == "Draft" %>
+                                <button id="update" name="update" type="submit" value="update">Update</button>
+                            <% end %>
+                        <% elsif (session[:role] == 2 && @work_order.status == "Under Review") || (session[:role] == 3 && @work_order.status == "For approval") %>
+                            <button id="approve" type="submit" name="approve" value="approve">Approve</button> <!-- Approve Button for operations reviewers and maintenance approvers if the WOR Status is "Under Review", and "For Approval", respectively -->
+                            <button id="reject" type="submit" name="reject"  value="reject">Reject</button> <!-- Reject Button for operations reviewers and maintenance approvers if the WOR Status is "Under Review", and "For Approval", respectively -->
+                        <% elsif session[:role] == 1 && (@work_order.status == "Draft" || @work_order.status == nil)%>
+                            <button id="draft" type="submit" value="draft">Save as draft</button> <!-- Save as draft Button for WOR creators if the WOR Status is "null" and they want to change it "draft" -->    
+                        <% end %>
+                        <a href="/worsystem" id="return">Return to WORs List</a>
+                    </section>
+                </form>
+            </div>
+
+            <!--Materials reservation page for maintenance-->
+            <div class="tab-pane fade" id="nav-reservation" role="tabpanel" aria-labelledby="nav-reservation-tab" tabindex="0">
+                <form id="reservation_form" action="/reservations/create" method="post">
+                    <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+                    <input type="hidden" value="4200000001"> <!--wor number-->
+                    <label>Reservation Number<input type="text" name="gr_number" value="" disabled></label>
+                    <label>Posted on<input type="text" name="posted_at" value="04/11/2024 11:35 AM" disabled></label>
+                    <table id="reservation">
+                        <thead>
+                            <tr>
+                                <th>Material Code</th>
+                                <th>Description</th>
+                                <th>Qty</th>
+                                <th>Unit Cost</th> <!-- get via average -->
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for i in 1..5 %>
+                                <tr>
+                                    <td><input class="matcode" type="text" name="matcode_<%= i %>"></td>
+                                    <td class="description"></td>
+                                    <td><input class="quantity" type="text" name="item_quantity_<%= i %>"></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            <% end %>
+                        </tbody>
+                    </table>
+                    <section>
+                        <button id="submit" type="submit" name="reserve" value="reserve">Reserve</button>
+                        <!-- <button id="revoke" type="submit" value="revoke">Revoke</button> -->
+                    </section>
+                </form>
+            </div>
+        </div>
     </div>
 </div>

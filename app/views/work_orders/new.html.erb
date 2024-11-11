@@ -1,65 +1,69 @@
-<form id="create_wor" action="/worsystem/create" method="post">
-    <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
-    <h1>Create a Work Order Request</h1>
-    <table>
-        <tr>
-            <th style="width:250px"><h5>Inspection DateTime</h5></th>
-            <th><h5>Priority</h5></th>
-        </tr>
-        <tr>
-            <td><input type="text" name="work_order[inspected_at]" placeholder="mm/dd/yyyy HH:MM"></td>
-            <td>
-                <label class="priority" ><input type="radio" name="work_order[priority]" value="Low"> Low</label>
-                <label class="priority" ><input type="radio" name="work_order[priority]" value="Medium"> Medium</label>
-                <label class="priority" ><input type="radio" name="work_order[priority]" value="High"> High</label>
-            </td>
-        </tr>
-    </table>
-    <table style="width:700px">
-        <tr>
-            <th><h5>Unit</h5></th>
-            <th><h5>Equipment Identifier</h5></th> <!-- should dynamically generate different codes depending on the selected equipment -->
-            <th><h5>Running Hours</h5></th>
-        </tr>
-        <tr>
-            <td>
-                <select name="unit_name" id="unit_name">
-                    <option disabled selected hidden></option>
-                    <option value="Engine">Engine</option>
-                    <option value="Generator">Generator</option>
-                    <option value="Oil Purifier">Oil Purifier</option>
-                    <option value="Booster Unit">Booster Unit</option>
-                </select>
-            </td>
-            <td>
-                <select name="equipment_identifier" id="equipment_identifier">
-                    <option disabled selected hidden></option>
-                    <option value="Alpha">Alpha</option>
-                    <option value="Bravo">Bravo</option>
-                    <option value="Charlie">Charlie</option>
-                    <option value="Delta">Delta</option>
-                </select>
-            </td>
-            <td><input type="text" name="work_order[running_hours]"></td>
-        </tr>
-        <tr>
-        </tr>
-    </table>
-    <h5>Discrepancy Description</h5>
-    <textarea name="work_order[description]"></textarea>
-    <section>
-        <button id="submit" name="submit" type="submit" value="submit">Submit</button>
-        <button id="cancel" name="cancel" type="submit" value="cancel">Cancel</button>
-        <button id="draft" name="draft" type="submit" value="draft">Save as draft</button>
-    </section>
-    <% if @work_order.errors.any? %>
-        <div id="error_explanation">
-            <h2><%= pluralize(@work_order.errors.count, "error")%> prohibited this post from being saved:</h2>
-            <ul>
-            <% @work_order.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-            <% end %>
-            </ul>
-        </div>
+<div id="work_orders_page_container">
+    <%= render "shared/partials/navbar" do %>
+        <h1>Create a Work Order Request</h1>
     <% end %>
-</form>
+    <form id="create_wor" action="/worsystem/create" method="post">
+        <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+        <table>
+            <tr>
+                <th style="width:250px"><h5>Inspection DateTime</h5></th>
+                <th><h5>Priority</h5></th>
+            </tr>
+            <tr>
+                <td><input type="text" name="work_order[inspected_at]" placeholder="mm/dd/yyyy HH:MM"></td>
+                <td>
+                    <label class="priority" ><input type="radio" name="work_order[priority]" value="Low"> Low</label>
+                    <label class="priority" ><input type="radio" name="work_order[priority]" value="Medium"> Medium</label>
+                    <label class="priority" ><input type="radio" name="work_order[priority]" value="High"> High</label>
+                </td>
+            </tr>
+        </table>
+        <table style="width:700px">
+            <tr>
+                <th><h5>Unit</h5></th>
+                <th><h5>Equipment Identifier</h5></th> <!-- should dynamically generate different codes depending on the selected equipment -->
+                <th><h5>Running Hours</h5></th>
+            </tr>
+            <tr>
+                <td>
+                    <select name="unit_name" id="unit_name">
+                        <option disabled selected hidden></option>
+                        <option value="Engine">Engine</option>
+                        <option value="Generator">Generator</option>
+                        <option value="Oil Purifier">Oil Purifier</option>
+                        <option value="Booster Unit">Booster Unit</option>
+                    </select>
+                </td>
+                <td>
+                    <select name="equipment_identifier" id="equipment_identifier">
+                        <option disabled selected hidden></option>
+                        <option value="Alpha">Alpha</option>
+                        <option value="Bravo">Bravo</option>
+                        <option value="Charlie">Charlie</option>
+                        <option value="Delta">Delta</option>
+                    </select>
+                </td>
+                <td><input type="text" name="work_order[running_hours]"></td>
+            </tr>
+            <tr>
+            </tr>
+        </table>
+        <h5>Discrepancy Description</h5>
+        <textarea name="work_order[description]"></textarea>
+        <section>
+            <button id="submit" name="submit" type="submit" value="submit">Submit</button>
+            <button id="cancel" name="cancel" type="submit" value="cancel">Cancel</button>
+            <button id="draft" name="draft" type="submit" value="draft">Save as draft</button>
+        </section>
+        <% if @work_order.errors.any? %>
+            <div id="error_explanation">
+                <h2><%= pluralize(@work_order.errors.count, "error")%> prohibited this post from being saved:</h2>
+                <ul>
+                <% @work_order.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+                </ul>
+            </div>
+        <% end %>
+    </form>
+</div>
