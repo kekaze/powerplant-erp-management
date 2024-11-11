@@ -1,8 +1,10 @@
+<%= render "shared/partials/navbar" do %>
+    <h1>Continue a Work Order Request# <%= @work_order.wor_number %></h1>
+<% end %>
 <form id="create_wor" action="/worsystem/<%= @work_order.wor_number %>" method="post">
     <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
     <input type="hidden" name="_method" value="put">
     <input type="hidden" name="work_order[wor_number]" value="<%= @work_order.wor_number %>">
-    <h1>Continue a Work Order Request# <%= @work_order.wor_number %></h1>
     <table>
         <tr>
             <th style="width:250px"><h5>Inspection DateTime</h5></th>
