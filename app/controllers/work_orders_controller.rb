@@ -134,7 +134,7 @@ class WorkOrdersController < ApplicationController
 
       if @work_order.save
         if params[:draft]
-          redirect_to "/worsystem/#{ @work_order.wor_number }/continue"
+          redirect_to "/worsystem"
         else
           redirect_to "/worsystem/#{ @work_order.wor_number }"
         end

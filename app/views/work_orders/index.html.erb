@@ -26,11 +26,7 @@
             <tbody>
                 <% @work_orders.each do |work_order| %>
                     <tr>
-                        <% if work_order.status == "Draft" %>
-                            <td><a href="/worsystem/<%= work_order.wor_number %>/continue"><%= work_order.wor_number %></td>
-                        <% else %>
-                            <td><a href="/worsystem/<%= work_order.wor_number %>"><%= work_order.wor_number %></td>
-                        <% end %>
+                        <td><a href="/worsystem/<%= work_order.wor_number %>"><%= work_order.wor_number %></td>
                         <td><%= work_order.priority %></td>
                         <td><%= work_order.description %></td>
                         <td><%= @equipment[work_order.equipment_id].unit_name %></td>
