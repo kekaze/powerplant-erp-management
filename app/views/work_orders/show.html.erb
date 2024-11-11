@@ -1,6 +1,6 @@
 <!--
 Conditions in viewing the show a WOR page
-1. If status is "Under Review", only the requestor and reviewer can see the WOR, requestor can see a "Revoke" button
+1. If status is "Under review", only the requestor and reviewer can see the WOR, requestor can see a "Revoke" button
 2. If status is "For approval", everyone can see the WOR details, only the approver can see an "Approve"
     and "Reject Button", other users cannot see buttons
 3. If status is "Approved", everyone loses their buttons except regular accounts from maintenance sees
@@ -14,7 +14,7 @@ Conditions in viewing the show a WOR page
         <span>Status: <%= @work_order.status %></span> <!--show colored circles depending on status-->
         <p id="action_dates">
             Created on <%= @work_order.created_at.strftime("%m/%d/%Y %H:%M") %>&emsp;<!--show after creation-->
-            <% if @work_order.status != "Under Review" %>
+            <% if @work_order.status != "Under review" %>
                 <%  if @work_order.status == "For approval" %>
                     ||&emsp;Reviewed on <%= @work_order.reviewed_at.strftime("%m/%d/%Y %H:%M") %>&emsp;  <!--show when reviewed or when approved-->
                 <% elsif @work_order.status == "Approved" || @work_order.status == "Closed" %>
@@ -107,15 +107,15 @@ Conditions in viewing the show a WOR page
                         <% end %>
                         <% if session[:role] == 1 || session[:role] == 4 %>
                             <% if @work_order.status != "Cancelled" && @work_order.status != "Draft" && @work_order.status != "Revoked" %>
-                                <button id="revoke" name="revoke" type="submit" value="revoke">Revoke</button> <!-- Revoke Button for WOR creators if the WOR Status is "Under Review", and creators wants to cancel or edit the WOR -->
+                                <button id="revoke" name="revoke" type="submit" value="revoke">Revoke</button> <!-- Revoke Button for WOR creators if the WOR Status is "Under review", and creators wants to cancel or edit the WOR -->
                             <% elsif @work_order.status == "Revoked" %>
                                 <button id="cancel" name="cancel" type="submit" value="cancel">Cancel</button> <!-- Cancel Button for WOR creators if the WOR Status is "Revoked" to change WOR status to cancelled -->
                             <% elsif @work_order.status == "Draft" %>
                                 <button id="update" name="update" type="submit" value="update">Update</button>
                             <% end %>
-                        <% elsif (session[:role] == 2 && @work_order.status == "Under Review") || (session[:role] == 3 && @work_order.status == "For approval") %>
-                            <button id="approve" type="submit" name="approve" value="approve">Approve</button> <!-- Approve Button for operations reviewers and maintenance approvers if the WOR Status is "Under Review", and "For Approval", respectively -->
-                            <button id="reject" type="submit" name="reject"  value="reject">Reject</button> <!-- Reject Button for operations reviewers and maintenance approvers if the WOR Status is "Under Review", and "For Approval", respectively -->
+                        <% elsif (session[:role] == 2 && @work_order.status == "Under review") || (session[:role] == 3 && @work_order.status == "For approval") %>
+                            <button id="approve" type="submit" name="approve" value="approve">Approve</button> <!-- Approve Button for operations reviewers and maintenance approvers if the WOR Status is "Under review", and "For Approval", respectively -->
+                            <button id="reject" type="submit" name="reject"  value="reject">Reject</button> <!-- Reject Button for operations reviewers and maintenance approvers if the WOR Status is "Under review", and "For Approval", respectively -->
                         <% elsif session[:role] == 1 && (@work_order.status == "Draft" || @work_order.status == nil)%>
                             <button id="draft" type="submit" value="draft">Save as draft</button> <!-- Save as draft Button for WOR creators if the WOR Status is "null" and they want to change it "draft" -->    
                         <% end %>

@@ -33,7 +33,7 @@
             <td>
                 <select name="unit_name" id="unit_name">
                     <% @unit_names.each do |unit| %>
-                        <% if unit == @equipment.unit_name %>
+                        <% if unit == @work_order.unit_name %>
                             <option value="<%= unit %>" selected><%= unit %></option>
                         <% else %> 
                             <option value="<%= unit %>"><%= unit %></option>
@@ -44,7 +44,7 @@
             <td>
                 <select name="equipment_identifier" id="equipment_identifier">
                     <% @identifiers.each do |identifier| %>
-                        <% if identifier == @equipment.identifier %>
+                        <% if identifier == @work_order.identifier %>
                             <option value="<%= identifier %>" selected><%= identifier %></option>
                         <% else %>
                             <option value="<%= identifier %>"><%= identifier %></option>
@@ -65,3 +65,22 @@
         <button id="draft" name="draft" type="submit" value="draft">Save as draft</button>
     </section>
 </form>
+<script>
+    $(document).ready(function() {
+        $("select[name='unit_name']").on("change", () => {
+            $.ajax({
+                url: "/ajax/equipment",
+                method: "GET",
+                data: { unit_name: $("select[name='unit_name']").val() },
+                dataType: "html",
+                success: (data) => {
+                    $("select[name='equipment_identifier']").empty();
+                    $("select[name='equipment_identifier']").append(data);
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX error:", status, error);
+                }
+            })
+        })
+    });
+</script>

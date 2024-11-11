@@ -12,9 +12,9 @@ class WorkOrdersController < ApplicationController
     elsif session[:role] == 2
       @work_orders = WorkOrder.where.not(status: "Draft").and(WorkOrder.where.not(status: "Cancelled", reviewed_at: nil))
     elsif session[:role] == 3
-      @work_orders = WorkOrder.where.not(status: ["Under Review", "Draft"]).and(WorkOrder.where.not(status: ["Revoked", "Cancelled"], approved_at: nil))
+      @work_orders = WorkOrder.where.not(status: ["Under review", "Draft"]).and(WorkOrder.where.not(status: ["Revoked", "Cancelled"], approved_at: nil))
     else
-      @work_orders = WorkOrder.where(status: ["For Approval", "Approved", "Closed"])
+      @work_orders = WorkOrder.where(status: ["For approval", "Approved", "Closed"])
     end
 
     @equipment = Equipment.all
@@ -52,8 +52,8 @@ class WorkOrdersController < ApplicationController
     @wor_number.reviewer_id = session[:user_id]
     @wor_number.reviewed_at = Time.zone.now
 
-    if params[:approve] && @wor_number.status == "Under Review"
-      @wor_number.status = "For Approval"
+    if params[:approve] && @wor_number.status == "Under review"
+      @wor_number.status = "For approval"
     elsif params[:reject]
       @wor_number.status = "Rejected"
     end
@@ -70,7 +70,7 @@ class WorkOrdersController < ApplicationController
     @wor_number.approver_id = session[:user_id]
     @wor_number.approved_at = Time.zone.now
 
-    if params[:approve] && @wor_number.status == "For Approval"
+    if params[:approve] && @wor_number.status == "For approval"
       @wor_number.status = "Approved"
     elsif params[:reject]
       @wor_number.status = "Rejected"
@@ -94,12 +94,22 @@ class WorkOrdersController < ApplicationController
       redirect_to "/worsystem/#{params[:wor_number]}/revoke"
     elsif params[:cancel]
       redirect_to "/worsystem/#{params[:wor_number]}/cancel"
-    end
-    @work_order = WorkOrder.find_by(wor_number: params[:wor_number])
-    @equipment = Equipment.find(@work_order.equipment_id)
+    end 
     @priorities = ["Low", "Medium", "High"]
-    @unit_names = ["Engine", "Generator", "Oil Purifier", "Booster Unit"]
-    @identifiers = ["Alpha", "Bravo", "Charlie", "Delta"]
+    @unit_names = []
+    @identifiers = []
+
+    @work_order = WorkOrder.joins(:equipment).select('work_orders.*, equipment.unit_name, equipment.identifier')
+                          .find_by(wor_number: params[:wor_number])
+    @equipment_options = Equipment.select("unit_name, array_agg(identifier) as identifiers")
+                                  .group("unit_name")
+
+    @equipment_options.each do |equipment|
+      @unit_names.push(equipment.unit_name)
+      if (equipment.unit_name == @work_order.unit_name)
+        @identifiers = equipment.identifiers
+      end
+    end
   end
 
   def create
@@ -117,7 +127,7 @@ class WorkOrdersController < ApplicationController
       if params[:draft]
         @work_order.status = "Draft"
       else
-        @work_order.status = "Under Review"
+        @work_order.status = "Under review"
       end
       
       # Check if inspected_at format is valid
@@ -179,7 +189,7 @@ class WorkOrdersController < ApplicationController
       if params[:draft]
         update_params[:status] = "Draft"
       else
-        update_params[:status] = "Under Review"
+        update_params[:status] = "Under review"
       end
       
       # Check if inspected_at format is valid
@@ -197,7 +207,8 @@ class WorkOrdersController < ApplicationController
       if @work_order.update(update_params)
         redirect_to "/worsystem/#{ @work_order.wor_number }"
       else
-        render :continue
+        ##### TODO: Error handling
+        redirect_to "/worsystem/#{params[:wor_number]}/continue"
       end
     end
   end
