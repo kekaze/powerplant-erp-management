@@ -116,8 +116,6 @@ Conditions in viewing the show a WOR page
                         <% elsif (session[:role] == 2 && @work_order.status == "Under review") || (session[:role] == 3 && @work_order.status == "For approval") %>
                             <button id="approve" type="submit" name="approve" value="approve">Approve</button> <!-- Approve Button for operations reviewers and maintenance approvers if the WOR Status is "Under review", and "For Approval", respectively -->
                             <button id="reject" type="submit" name="reject"  value="reject">Reject</button> <!-- Reject Button for operations reviewers and maintenance approvers if the WOR Status is "Under review", and "For Approval", respectively -->
-                        <% elsif session[:role] == 1 && (@work_order.status == "Draft" || @work_order.status == nil)%>
-                            <button id="draft" type="submit" value="draft">Save as draft</button> <!-- Save as draft Button for WOR creators if the WOR Status is "null" and they want to change it "draft" -->    
                         <% end %>
                         <a href="/worsystem" id="return">Return to WORs List</a>
                     </section>
