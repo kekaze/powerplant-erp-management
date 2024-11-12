@@ -61,6 +61,8 @@ class WorkOrdersController < ApplicationController
   end
 
   def review
+    ####### TODO: displaying of shortcut user name
+
     @wor_number = WorkOrder.find_by(wor_number: params[:wor_number])
     @wor_number.reviewer_id = session[:user_id]
     @wor_number.reviewed_at = Time.zone.now
@@ -80,6 +82,8 @@ class WorkOrdersController < ApplicationController
   end
 
   def approve
+    ####### TODO: displaying of shortcut user name
+
     @wor_number = WorkOrder.find_by(wor_number: params[:wor_number])
     @wor_number.approver_id = session[:user_id]
     @wor_number.approved_at = Time.zone.now
@@ -131,6 +135,7 @@ class WorkOrdersController < ApplicationController
 
   def create
     ####### TODO: error  handling
+    ####### TODO: displaying of shortcut user name
     if params[:cancel]
       redirect_to "/worsystem/cancel"
     else
@@ -232,6 +237,8 @@ class WorkOrdersController < ApplicationController
   end
 
   def close
+    ####### TODO: displaying of shortcut user name
+
     @work_order = WorkOrder.find_by(wor_number: params[:wor_number])
     @work_order.status = "Closed"
     @work_order.closer_id = session[:user_id].to_i

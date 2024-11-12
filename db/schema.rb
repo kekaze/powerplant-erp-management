@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_08_094011) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_12_061947) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -88,7 +88,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_08_094011) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "running_hours"
-    t.boolean "made_by_shortcut", null: false
+    t.string "sc_requestor"
+    t.string "sc_reviewer"
+    t.string "sc_approver"
+    t.string "sc_closer"
     t.index ["approver_id"], name: "index_work_orders_on_approver_id"
     t.index ["closer_id"], name: "index_work_orders_on_closer_id"
     t.index ["equipment_id"], name: "index_work_orders_on_equipment_id"
