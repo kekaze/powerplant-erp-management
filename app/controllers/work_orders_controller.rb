@@ -21,7 +21,7 @@ class WorkOrdersController < ApplicationController
       @work_orders = WorkOrder.joins(:equipment)
                               .select('work_orders.*, equipment.unit_name, equipment.identifier')
                               .where.not(status: ["Under review", "Draft"])
-                              .and(WorkOrder.where.not(status: ["Revoked", "Cancelled"], approved_at: nil))
+                              .and(WorkOrder.where.not(status: ["Revoked", "Cancelled", "Rejected"], approved_at: nil))
     else
       @work_orders = WorkOrder.joins(:equipment)
                               .select('work_orders.*, equipment.unit_name, equipment.identifier')

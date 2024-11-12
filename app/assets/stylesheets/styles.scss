@@ -285,6 +285,10 @@ form#create_wor .priority {
 
 #wor_details {
     width: 800px;
+
+    section button {
+        margin-right: 20px;
+    }
 }
 #wor_details h1 {
     margin-bottom: 0;
@@ -332,9 +336,6 @@ select#equipment_identifier, select#unit_name {
     background-color: transparent;
     border: none;
     text-decoration: underline;
-}
-#return {
-    margin-left: 20px;
 }
 #submit, #approve, #close, #update {
     background-color:#008e0e;
