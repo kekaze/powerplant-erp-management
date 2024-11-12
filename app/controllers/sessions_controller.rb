@@ -10,8 +10,8 @@ class SessionsController < ApplicationController
     9 => "Administrator"
   }
 
-  def index # shows login page for shortcut process (no credentials)
-    render layout: 'application'
+  def shortcut_login # shows login page for shortcut process (no credentials)
+    @page_title = "Login - Shortcut"
   end
 
   def create
