@@ -8,16 +8,28 @@ class WorkOrdersController < ApplicationController
 
     # if role_id is less than 5, show the Wor System Landing Page
     if session[:role] == 1
-      @work_orders = WorkOrder.where(status: "Draft", requestor_id: session[:user_id]).or(WorkOrder.where.not(status: "Draft"))
+      @work_orders = WorkOrder.joins(:equipment)
+                              .select('work_orders.*, equipment.unit_name, equipment.identifier')
+                              .where(status: "Draft", requestor_id: session[:user_id])
+                              .or(WorkOrder.where.not(status: "Draft"))
     elsif session[:role] == 2
-      @work_orders = WorkOrder.where.not(status: "Draft").and(WorkOrder.where.not(status: "Cancelled", reviewed_at: nil))
+      @work_orders = WorkOrder.joins(:equipment)
+                              .select('work_orders.*, equipment.unit_name, equipment.identifier')
+                              .where.not(status: "Draft")
+                              .and(WorkOrder.where.not(status: "Cancelled", reviewed_at: nil))
     elsif session[:role] == 3
-      @work_orders = WorkOrder.where.not(status: ["Under review", "Draft"]).and(WorkOrder.where.not(status: ["Revoked", "Cancelled"], approved_at: nil))
+      @work_orders = WorkOrder.joins(:equipment)
+                              .select('work_orders.*, equipment.unit_name, equipment.identifier')
+                              .where.not(status: ["Under review", "Draft"])
+                              .and(WorkOrder.where.not(status: ["Revoked", "Cancelled"], approved_at: nil))
     else
-      @work_orders = WorkOrder.where(status: ["For approval", "Approved", "Closed"])
+      @work_orders = WorkOrder.joins(:equipment)
+                              .select('work_orders.*, equipment.unit_name, equipment.identifier')
+                              .where(status: ["For approval", "Approved", "Closed"])
     end
 
     @equipment = Equipment.all
+    print(@equipment[1])
     @users = User.all
     @page_title = "Work Order System"
   end
@@ -33,6 +45,7 @@ class WorkOrdersController < ApplicationController
       @priorities = ["Low", "Medium", "High"]
       @unit_names = ["Engine", "Generator", "Oil Purifier", "Booster Unit"]
       @identifiers = ["Alpha", "Bravo", "Charlie", "Delta"]
+      @page_title = "Work Order System"
       if session[:role] == 1
         @action = "/continue"
       elsif session[:role] == 2
@@ -59,6 +72,7 @@ class WorkOrdersController < ApplicationController
     end
 
     if @wor_number.save
+      @page_title = "Review Work Order"
       redirect_to "/worsystem/#{@wor_number.wor_number}"
     else
       fail
@@ -77,6 +91,7 @@ class WorkOrdersController < ApplicationController
     end
 
     if @wor_number.save
+      @page_title = "Approve Work Order"
       redirect_to "/worsystem/#{@wor_number.wor_number}"
     else
       fail
@@ -85,6 +100,7 @@ class WorkOrdersController < ApplicationController
 
   def new
     redirect_to "/worsystem" if session[:role] < 5 && session[:role] != 1
+    @page_title = "Create Work Order"
     @equipment = Equipment.select("unit_name").group("unit_name")
     @work_order = WorkOrder.new
   end
@@ -98,6 +114,7 @@ class WorkOrdersController < ApplicationController
     @priorities = ["Low", "Medium", "High"]
     @unit_names = []
     @identifiers = []
+    @page_title = "Work Order System"
 
     @work_order = WorkOrder.joins(:equipment).select('work_orders.*, equipment.unit_name, equipment.identifier')
                           .find_by(wor_number: params[:wor_number])

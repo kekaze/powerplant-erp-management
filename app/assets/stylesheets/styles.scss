@@ -243,8 +243,8 @@ header {
     right: 90px;
 }
 
-#wor-table_wrapper {
-    padding-top: 40px;
+#wor-table tbody tr td {
+    font-size: 14px;
 }
 
 form#create_wor h1 {
@@ -274,7 +274,7 @@ form#create_wor .priority {
 #work_orders_page_container {
     background:rgb(159, 159, 159);
     height: 100vh;
-    width: 100vw;
+    width: 100%;
 }
 #work_order_details_container {
     margin: 0px 10px;

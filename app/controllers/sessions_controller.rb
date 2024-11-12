@@ -14,6 +14,10 @@ class SessionsController < ApplicationController
     @page_title = "Login - Shortcut"
   end
 
+  def login # shows login page for shortcut process (no credentials)
+    @page_title = "Login"
+  end
+
   def create
     # if shortcut_user
     if (!params[:email] && !params[:password] && params[:username] && params[:role])

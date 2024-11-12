@@ -29,8 +29,8 @@
                         <td><a href="/worsystem/<%= work_order.wor_number %>"><%= work_order.wor_number %></td>
                         <td><%= work_order.priority %></td>
                         <td><%= work_order.description %></td>
-                        <td><%= @equipment[work_order.equipment_id].unit_name %></td>
-                        <td><%= @equipment[work_order.equipment_id].identifier %></td>
+                        <td><%= work_order.unit_name %></td>
+                        <td><%= work_order.identifier %></td>
                         <td><%= work_order.status %></td>
                         <td><%= work_order.inspected_at.strftime("%m/%d/%Y %H:%M") %></td>
                         <td><%= work_order.created_at.strftime("%m/%d/%Y %H:%M") %></td>
