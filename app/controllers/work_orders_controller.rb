@@ -60,11 +60,15 @@ class WorkOrdersController < ApplicationController
     end
   end
 
-  def review
-    ####### TODO: displaying of shortcut user name
-
+  def revie
     @wor_number = WorkOrder.find_by(wor_number: params[:wor_number])
-    @wor_number.reviewer_id = session[:user_id]
+
+    if session[:isShortcut]
+      @wor_number.sc_reviewer = session[:username]
+    else
+      @wor_number.reviewer_id = session[:user_id]
+    end
+
     @wor_number.reviewed_at = Time.zone.now
 
     if params[:approve] && @wor_number.status == "Under review"
@@ -82,10 +86,15 @@ class WorkOrdersController < ApplicationController
   end
 
   def approve
-    ####### TODO: displaying of shortcut user name
-
     @wor_number = WorkOrder.find_by(wor_number: params[:wor_number])
-    @wor_number.approver_id = session[:user_id]
+    
+        
+    if session[:isShortcut]
+      @wor_number.sc_approver = session[:username]
+    else
+      @wor_number.approver_id = session[:user_id]
+    end
+
     @wor_number.approved_at = Time.zone.now
 
     if params[:approve] && @wor_number.status == "For approval"
@@ -135,7 +144,6 @@ class WorkOrdersController < ApplicationController
 
   def create
     ####### TODO: error  handling
-    ####### TODO: displaying of shortcut user name
     if params[:cancel]
       redirect_to "/worsystem/cancel"
     else
@@ -145,7 +153,10 @@ class WorkOrdersController < ApplicationController
       equipment = Equipment.where(unit_name: params[:unit_name], identifier: params[:equipment_identifier]).first
       @work_order.equipment_id = equipment ? equipment.id : nil
       @work_order.requestor_id = session[:user_id].to_i
-      @work_order.made_by_shortcut = session[:isShortcut]
+
+      if session[:isShortcut]
+        @work_order.sc_requestor = session[:username]
+      end
 
       if params[:draft]
         @work_order.status = "Draft"
@@ -237,11 +248,15 @@ class WorkOrdersController < ApplicationController
   end
 
   def close
-    ####### TODO: displaying of shortcut user name
-
     @work_order = WorkOrder.find_by(wor_number: params[:wor_number])
     @work_order.status = "Closed"
-    @work_order.closer_id = session[:user_id].to_i
+
+    if session[:isShortcut]
+      @wor_number.sc_closer = session[:username]
+    else
+      @work_order.closer_id = session[:user_id].to_i
+    end
+
     @work_order.closed_at = Time.zone.now
     @work_order.save
     redirect_to "/worsystem/#{params[:wor_number]}"

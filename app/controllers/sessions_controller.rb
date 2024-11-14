@@ -29,6 +29,7 @@ class SessionsController < ApplicationController
       if @shortcut_user.save
         @roles = @@roles
         session[:user_id] = @shortcut_user.id
+        session[:username] = @username
         session[:role] = @role_id
         session[:isShortcut] = true
         redirect_to worsystem_path unless @role_id > 4

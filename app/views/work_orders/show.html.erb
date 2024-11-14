@@ -86,19 +86,52 @@ Conditions in viewing the show a WOR page
                     <div id="footer">
                         <section>
                             <h5>Requestor</h5>
-                            <input type="text" id="requestor" value="<%= @work_order.requestor.first_name %> <%= @work_order.requestor.last_name %>" disabled>
+                            <input 
+                                type="text" 
+                                id="requestor"
+                                value='<%=  if @work_order.sc_requestor.nil?
+                                                "#{@work_order.requestor.first_name} #{@work_order.requestor.last_name}"
+                                            else
+                                                @work_order.sc_requestor
+                                            end %>'
+                                disabled
+                            >
                         </section>
                         <section>
                             <h5>Reviewer</h5>
-                            <input type="text" id="reviewer" value="<%= @work_order.reviewer&.first_name.presence || '' %> <%= @work_order.reviewer&.last_name.presence || '' %>" disabled>
+                            <input 
+                                type="text" 
+                                id="reviewer" 
+                                value='<%=  if @work_order.sc_requestor.nil?
+                                                "#{@work_order.reviewer&.first_name.presence} #{@work_order.reviewer&.last_name.presence}"
+                                            else
+                                                @work_order.sc_reviewer.presence
+                                            end %>' 
+                                disabled>
                         </section>
                         <section>
                             <h5>Approver</h5>
-                            <input type="text" id="approver" value="<%= @work_order.approver&.first_name.presence || '' %> <%= @work_order.approver&.last_name.presence || '' %>" disabled>
+                            <input 
+                                type="text" 
+                                id="approver" 
+                                value='<%=  if @work_order.sc_requestor.nil?
+                                                "#{@work_order.approver&.first_name.presence} #{@work_order.approver&.last_name.presence}"
+                                            else
+                                                @work_order.sc_approver.presence
+                                            end %>'
+                                disabled>
                         </section>
                         <section>
                             <h5>Closed by</h5>
-                            <input type="text" id="closed_by" value="<%= @work_order.closer&.first_name.presence || '' %> <%= @work_order.closer&.last_name.presence || '' %>" disabled>
+                            <input 
+                                type="text" 
+                                id="closed_by" 
+                                value='<%=  if @work_order.sc_requestor.nil?
+                                                "#{@work_order.closer&.first_name.presence} #{@work_order.closer&.last_name.presence}" 
+                                            else
+                                                @work_order.sc_closer.presence
+                                            end %>'
+                                disabled>
                         </section>
                     </div>
                     <section>
