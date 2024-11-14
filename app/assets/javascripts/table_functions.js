@@ -1,8 +1,26 @@
-
 $(document).ready( function () {
-    $('#users-table').DataTable();
-    let wor_table = $('#wor-table').DataTable();
+    var options = 
+    {
+        isEnabled: true,
+        hasBoundCheck: true,
+        minBoundClass: 'dt-colresizable-bound-min',
+        maxBoundClass: 'dt-colresizable-bound-max',
+        isResizable: function (column) {
+            return true;
+        }
+    };
+    
+    let user_table = $('#users-table').DataTable();
+    user_table.columns.adjust().draw();
+
+    let wor_table = $('#wor-table').DataTable({
+        "scrollX": true,
+        'dom': 'Rlfrtip',
+        colResize: options
+    });
     wor_table.order([0, 'desc']).draw();
+    wor_table.colResize.enable();
+
     $('#reservation').DataTable();
     
     // Function to handle form submission

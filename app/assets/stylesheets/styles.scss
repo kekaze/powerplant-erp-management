@@ -243,8 +243,17 @@ header {
     right: 90px;
 }
 
+#wor-table {
+    width: 100%;
+    overflow-x: scroll;
+}
+
 #wor-table tbody tr td {
     font-size: 14px;
+    max-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 form#create_wor h1 {
