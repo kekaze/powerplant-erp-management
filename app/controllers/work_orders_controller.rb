@@ -60,7 +60,7 @@ class WorkOrdersController < ApplicationController
     end
   end
 
-  def revie
+  def review
     @wor_number = WorkOrder.find_by(wor_number: params[:wor_number])
 
     if session[:isShortcut]
