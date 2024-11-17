@@ -39,7 +39,7 @@ class SessionsController < ApplicationController
       else
         redirect_to "/"
       end
-    elsif (params[:email] && params[:password] && params[:username] && params[:role])
+    elsif (params[:email] && params[:password])
       @user = User.find_by(email: params[:email])
 
       redirect_to login_path and return if !@user
