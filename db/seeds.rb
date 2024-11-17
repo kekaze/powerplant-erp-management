@@ -8,12 +8,12 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-User.destroy_all
 WorkOrder.destroy_all
+User.destroy_all
 Equipment.destroy_all
 
-ActiveRecord::Base.connection.reset_pk_sequence!('users')
 ActiveRecord::Base.connection.reset_pk_sequence!('work_orders')
+ActiveRecord::Base.connection.reset_pk_sequence!('users')
 ActiveRecord::Base.connection.reset_pk_sequence!('equipment')
 
 initial_users_data =[
@@ -201,6 +201,7 @@ initial_workorders_data =[
     "reviewer_id": 3,
     "approver_id": nil,
     "closer_id": nil,
+    "created_at": DateTime.new(2024, 11, 8, 14, 32, 0),
     "reviewed_at": DateTime.new(2024, 11, 8, 14, 35, 0),
     "approved_at": nil,
     "closed_at": nil,
@@ -208,8 +209,91 @@ initial_workorders_data =[
     "sc_reviewer": nil,
     "sc_approver": nil,
     "sc_closer": nil,
-
-  }
+  },
+  {
+    "wor_number": 120000002,
+    "status": "Under review",
+    "inspected_at": DateTime.new(2024, 11, 8, 15, 00, 0),
+    "priority": "High",
+    "running_hours": 9604,
+    "description": "Excessive oil leakage near cylinder A3",
+    "equipment_id": 2,
+    "requestor_id": 2,
+    "reviewer_id": nil,
+    "approver_id": nil,
+    "closer_id": nil,
+    "created_at": DateTime.new(2024, 11, 8, 16, 00, 0),
+    "reviewed_at": nil,
+    "approved_at": nil,
+    "closed_at": nil,
+    "sc_requestor": nil,
+    "sc_reviewer": nil,
+    "sc_approver": nil,
+    "sc_closer": nil
+  },
+  {
+    "wor_number": 120000003,
+    "status": "Draft",
+    "inspected_at": DateTime.new(2024, 11, 9, 8, 45, 0),
+    "priority": "Low",
+    "running_hours": 10347,
+    "description": "Oil leak",
+    "equipment_id": 7,
+    "requestor_id": 1,
+    "reviewer_id": nil,
+    "approver_id": nil,
+    "closer_id": nil,
+    "created_at": DateTime.new(2024, 11, 9, 8, 50, 0),
+    "reviewed_at": nil,
+    "approved_at": nil,
+    "closed_at": nil,
+    "sc_requestor": nil,
+    "sc_reviewer": nil,
+    "sc_approver": nil,
+    "sc_closer": nil,
+  },
+  {
+    "wor_number": 120000004,
+    "status": "Closed",
+    "inspected_at": DateTime.new(2024, 11, 10, 12, 22, 0),
+    "priority": "High",
+    "running_hours": 9604,
+    "description": "Excessive fuel leak. Caused engine stoppage.",
+    "equipment_id": 10,
+    "requestor_id": 2,
+    "reviewer_id": 4,
+    "approver_id": 5,
+    "closer_id": 8,
+    "created_at": DateTime.new(2024, 11, 10, 12, 28, 0),
+    "reviewed_at": DateTime.new(2024, 11, 10, 12, 35, 0),
+    "approved_at": DateTime.new(2024, 11, 10, 12, 36, 0),
+    "closed_at": DateTime.new(2024, 11, 10, 16, 55, 0),
+    "sc_requestor": nil,
+    "sc_reviewer": nil,
+    "sc_approver": nil,
+    "sc_closer": nil,
+  },
+  {
+    "wor_number": 120000005,
+    "status": "For approval",
+    "inspected_at": DateTime.new(2024, 11, 13, 9, 30, 0),
+    "priority": "Medium",
+    "running_hours": 9452,
+    "description": "Unusual sound",
+    "equipment_id": 5,
+    "requestor_id": 2,
+    "reviewer_id": 4,
+    "approver_id": nil,
+    "closer_id": nil,
+    "created_at": DateTime.new(2024, 11, 13, 9, 32, 0),
+    "reviewed_at": DateTime.new(2024, 11, 13, 9, 35, 0),
+    "approved_at": nil,
+    "closed_at": nil,
+    "sc_requestor": nil,
+    "sc_reviewer": nil,
+    "sc_approver": nil,
+    "sc_closer": nil,
+  },
 ]
 
 initial_users_data.each do |user|
