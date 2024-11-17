@@ -19,9 +19,9 @@
         <h2 id="login">Official Login</h2>
         <p>to a duped Power Plant Management System</p>
         <%= form.label :email, "Email:" %>
-        <%= form.text_field :email, value: "admin@saprevamped.com" %>
+        <%= form.text_field :email %>
         <%= form.label :password, "Password:" %>
-        <%= form.password_field :password, value: "adminsecret123" %>
+        <%= form.password_field :password %>
         <%= form.submit 'Login' %>
         <footer>Check <%= link_to "github wiki", "https://github.com/kekaze/powerplant-erp-management/wiki/Initial-user-credentials", id: "wiki", target: :_blank %> for valid account credentials</footer>
     <% end %>
