@@ -34,11 +34,18 @@ Make sure you have installed the following:
 
 ## Database Initialization
 1. Database configuration:
-   <p>Go to <code>config/database.yml</code></p>
+   * <p>Go to <code>config/database.yml</code></p>
+   * <p>Configure database credentials in line 12 and 13</p>
+   * <p>Edit database names (if needed) on lines 17 and 24</p>
 
-2. Create db, load schema, and seed the database:
+2. Run migrations:
    ```
-   rails db:setup
+   rails db:migrate
+   ```
+
+3. Seed database:
+   ```
+   rails db:seed // runs the db/seed.rb file
    ```
 
 ## Run the project
