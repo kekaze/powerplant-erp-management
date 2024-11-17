@@ -1,24 +1,47 @@
-# README
+# Power Plant Management System
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This project is inspired by SAP S/4HANA that is used for enterprise resource planning (ERP).
 
-Things you may want to cover:
 
-* Ruby version
 
-* System dependencies
+## Requirements
+Make sure you have installed the following:
+* Ruby 3.2.3 ([Installation Guide](https://guides.rubyonrails.org/getting_started.html))
+* PostgreSQL 16.x ([Installation Guide](https://www.postgresql.org/download/))
 
-* Configuration
+## Setup
+1. Clone the project:
+   <h6>Using SSH: </h6>
+   
+   ```
+   git clone git@github.com:kekaze/powerplant-erp-management.git
+   ```
+   
+   <h6>Using HTTPS:</h6>
+   
+   ```
+   git clone https://github.com/kekaze/powerplant-erp-management.git
+   ```
+2. Navigate to the local project directory
+3. Install the latest bundler gem
+   ```
+   gem install bundler
+   ```
+4. Install the project's dependencies
+   ```
+   bundle install
+   ```
 
-* Database creation
+## Database Initialization
+1. Database configuration:
+   <p>Go to <code>config/database.yml</code></p>
 
-* Database initialization
+2. Create db, load schema, and seed the database:
+   ```
+   rails db:setup
+   ```
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Run the project
+  ```
+  rails server
+  ```
