@@ -52,3 +52,12 @@ Make sure you have installed the following:
   ```
   rails server
   ```
+
+## System Rules
+* Requestors can create new Work Order Requests (WOR)
+* Requestors can access their own draft WORs only
+* Reviewers can access WORs with status: 'Under review', 'For approval', 'Closed', and 'Rejected'
+* Approvers can access WORs with status: 'For approval', 'Closed', and 'Rejected'
+* Specialists can access WORs with status: 'For approval', 'Approved', and 'Closed' 
+* Admin cannot access WOR pages
+* Admin pages cannot be accessed by other roles
