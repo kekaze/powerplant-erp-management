@@ -6,11 +6,16 @@ class WorkOrdersController < ApplicationController
   
     redirect_to new_session_path and return unless session[:role] #if session is not present, perform logout process to avoid unauthorized access
 
-    # if role_id is less than 5, show the Wor System Landing Page
-    if session[:role] == 1
+      # if role_id is less than 5, show the Wor System Landing Page
+    if !session[:isShortcut] && session[:role] == 1
       @work_orders = WorkOrder.joins(:equipment)
                               .select('work_orders.*, equipment.unit_name, equipment.identifier')
                               .where(status: "Draft", requestor_id: session[:user_id])
+                              .or(WorkOrder.where.not(status: "Draft"))
+    elsif session[:isShortcut] && session[:role] == 1
+      @work_orders = WorkOrder.joins(:equipment)
+                              .select('work_orders.*, equipment.unit_name, equipment.identifier')
+                              .where(status: "Draft", sc_requestor: session[:username])
                               .or(WorkOrder.where.not(status: "Draft"))
     elsif session[:role] == 2
       @work_orders = WorkOrder.joins(:equipment)
