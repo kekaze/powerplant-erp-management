@@ -57,7 +57,12 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    @shortcut_user = Shortcutuser.find(session[:user_id])
+    begin
+      @shortcut_user = Shortcutuser.find(session[:user_id])
+    rescue ActiveRecord::RecordNotFound
+      @shortcut_user = nil
+    end
+    
     @max_id = ActiveRecord::Base.connection.select_value("SELECT MAX('id') FROM shortcutusers")
 
     if @shortcut_user
