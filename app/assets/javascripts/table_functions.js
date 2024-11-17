@@ -16,7 +16,8 @@ $(document).ready( function () {
     let wor_table = $('#wor-table').DataTable({
         "scrollX": true,
         'dom': 'Rlfrtip',
-        colResize: options
+        colResize: options,
+        "bAutoWidth": false
     });
     wor_table.order([0, 'desc']).draw();
     wor_table.colResize.enable();
